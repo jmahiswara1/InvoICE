@@ -7,18 +7,16 @@ import { Badge } from "@/components/ui/badge";
 
 export function Hero() {
   return (
-    <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.03] to-transparent" />
-
+    <section className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="relative max-w-6xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Badge variant="secondary" className="mb-4">
-              <WifiOff className="h-3 w-3 mr-1" />
+            <Badge variant="outline" className="mb-6 uppercase tracking-widest text-xs">
+              <WifiOff className="h-3 w-3 mr-1.5" />
               Offline-First
             </Badge>
           </motion.div>
@@ -27,19 +25,18 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]"
           >
-            Buat Invoice{" "}
-            <span className="text-primary">Profesional</span>
+            Buat Invoice
             <br />
-            Tanpa Ribet
+            Profesional Tanpa Ribet
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
             Aplikasi invoice offline-first untuk UMKM, online shop, dan
             freelancer di Indonesia. Lebih profesional dari Excel, lebih simpel
@@ -78,56 +75,64 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-16 relative max-w-4xl mx-auto"
+          className="mt-20 relative max-w-4xl mx-auto"
         >
-          <div className="relative rounded-xl border bg-card shadow-2xl overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b bg-muted/50">
+          <div className="relative border-2 bg-card shadow-2xl overflow-hidden">
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b-2 bg-muted/30">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-400" />
-                <div className="w-3 h-3 rounded-full bg-yellow-400" />
-                <div className="w-3 h-3 rounded-full bg-green-400" />
+                <div className="w-2.5 h-2.5 bg-foreground/20" />
+                <div className="w-2.5 h-2.5 bg-foreground/20" />
+                <div className="w-2.5 h-2.5 bg-foreground/20" />
               </div>
               <div className="flex-1 text-center">
-                <span className="text-xs text-muted-foreground font-medium">
+                <span className="text-xs text-muted-foreground font-medium tracking-wide">
                   Invoice — Dashboard
                 </span>
               </div>
-              <div className="flex items-center gap-1">
-                <Monitor className="h-3 w-3 text-muted-foreground" />
-              </div>
+              <Monitor className="h-3 w-3 text-muted-foreground" />
             </div>
 
-            <div className="p-6 bg-gradient-to-br from-background to-muted/20">
-              <div className="grid grid-cols-4 gap-4 mb-6">
+            <div className="p-6">
+              <div className="grid grid-cols-4 gap-3 mb-6">
                 {[
-                  { label: "Total Invoice", value: "156", color: "text-foreground" },
-                  { label: "Paid", value: "89", color: "text-green-600" },
-                  { label: "Unpaid", value: "52", color: "text-yellow-600" },
-                  { label: "Overdue", value: "15", color: "text-red-600" },
+                  { label: "Total Invoice", value: "156" },
+                  { label: "Paid", value: "89" },
+                  { label: "Unpaid", value: "52" },
+                  { label: "Overdue", value: "15" },
                 ].map((stat) => (
-                  <div key={stat.label} className="rounded-lg border bg-card p-4">
-                    <p className="text-xs text-muted-foreground">{stat.label}</p>
-                    <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+                  <div key={stat.label} className="border bg-card p-3">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                      {stat.label}
+                    </p>
+                    <p className="text-xl font-bold font-mono mt-1">
+                      {stat.value}
+                    </p>
                   </div>
                 ))}
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div className="col-span-2 rounded-lg border bg-card p-4 h-48">
-                  <p className="text-sm font-medium mb-4">Revenue Bulanan</p>
-                  <div className="flex items-end gap-2 h-32">
-                    {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 100].map((h, i) => (
-                      <div
-                        key={i}
-                        className="flex-1 bg-primary/10 rounded-t-sm"
-                        style={{ height: `${h}%` }}
-                      />
-                    ))}
+              <div className="grid grid-cols-3 gap-3">
+                <div className="col-span-2 border bg-card p-4 h-44">
+                  <p className="text-xs font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+                    Revenue Bulanan
+                  </p>
+                  <div className="flex items-end gap-1.5 h-32">
+                    {[40, 65, 45, 80, 55, 90, 70, 85, 60, 95, 75, 100].map(
+                      (h, i) => (
+                        <div
+                          key={i}
+                          className="flex-1 bg-foreground/10"
+                          style={{ height: `${h}%` }}
+                        />
+                      )
+                    )}
                   </div>
                 </div>
-                <div className="rounded-lg border bg-card p-4 h-48">
-                  <p className="text-sm font-medium mb-4">Status</p>
-                  <div className="space-y-3">
+                <div className="border bg-card p-4 h-44">
+                  <p className="text-xs font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+                    Status
+                  </p>
+                  <div className="space-y-2.5">
                     {[
                       { label: "Draft", count: 8, width: "40%" },
                       { label: "Sent", count: 52, width: "80%" },
@@ -135,12 +140,19 @@ export function Hero() {
                       { label: "Overdue", count: 15, width: "25%" },
                     ].map((item) => (
                       <div key={item.label}>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span className="text-muted-foreground">{item.label}</span>
-                          <span className="font-medium">{item.count}</span>
+                        <div className="flex justify-between text-[10px] mb-1">
+                          <span className="text-muted-foreground uppercase tracking-wider">
+                            {item.label}
+                          </span>
+                          <span className="font-mono font-medium">
+                            {item.count}
+                          </span>
                         </div>
-                        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                          <div className="h-full bg-primary rounded-full" style={{ width: item.width }} />
+                        <div className="h-1 bg-muted overflow-hidden">
+                          <div
+                            className="h-full bg-foreground"
+                            style={{ width: item.width }}
+                          />
                         </div>
                       </div>
                     ))}
@@ -149,9 +161,6 @@ export function Hero() {
               </div>
             </div>
           </div>
-
-          <div className="absolute -bottom-4 -right-4 -z-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute -top-4 -left-4 -z-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
         </motion.div>
       </div>
     </section>

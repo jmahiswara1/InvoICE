@@ -1,136 +1,135 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 const templates = [
   {
+    id: "minimalis",
     name: "Minimalis",
     description: "Clean dan sederhana. Cocok untuk freelancer dan agency.",
-    colors: ["bg-white", "bg-gray-100", "bg-gray-200", "bg-gray-800"],
     features: ["Putih bersih", "Typography clean", "Layout simpel"],
     preview: (
-      <div className="bg-white rounded-md border p-4 h-full text-xs">
+      <div className="bg-white border p-4 h-full text-xs dark:bg-card">
         <div className="flex justify-between mb-4">
           <div>
-            <div className="h-2 w-16 bg-gray-800 rounded mb-1" />
-            <div className="h-1.5 w-24 bg-gray-300 rounded" />
+            <div className="h-2 w-16 bg-gray-800 mb-1 dark:bg-gray-200" />
+            <div className="h-1.5 w-24 bg-gray-300 dark:bg-gray-600" />
           </div>
           <div className="text-right">
-            <div className="h-2 w-12 bg-gray-800 rounded mb-1" />
-            <div className="h-1.5 w-16 bg-gray-300 rounded" />
+            <div className="h-2 w-12 bg-gray-800 mb-1 dark:bg-gray-200" />
+            <div className="h-1.5 w-16 bg-gray-300 dark:bg-gray-600" />
           </div>
         </div>
         <div className="border-t pt-3 mb-3">
-          <div className="h-1.5 w-20 bg-gray-300 rounded mb-2" />
-          <div className="h-1.5 w-32 bg-gray-200 rounded" />
+          <div className="h-1.5 w-20 bg-gray-300 mb-2 dark:bg-gray-600" />
+          <div className="h-1.5 w-32 bg-gray-200 dark:bg-gray-700" />
         </div>
         <div className="border-t pt-3">
           <div className="flex justify-between mb-1">
-            <div className="h-1.5 w-24 bg-gray-300 rounded" />
-            <div className="h-1.5 w-10 bg-gray-300 rounded" />
+            <div className="h-1.5 w-24 bg-gray-300 dark:bg-gray-600" />
+            <div className="h-1.5 w-10 bg-gray-300 dark:bg-gray-600" />
           </div>
           <div className="flex justify-between mb-1">
-            <div className="h-1.5 w-20 bg-gray-200 rounded" />
-            <div className="h-1.5 w-8 bg-gray-200 rounded" />
+            <div className="h-1.5 w-20 bg-gray-200 dark:bg-gray-700" />
+            <div className="h-1.5 w-8 bg-gray-200 dark:bg-gray-700" />
           </div>
           <div className="border-t mt-2 pt-2 flex justify-between">
-            <div className="h-2 w-12 bg-gray-800 rounded" />
-            <div className="h-2 w-14 bg-gray-800 rounded" />
+            <div className="h-2 w-12 bg-gray-800 dark:bg-gray-200" />
+            <div className="h-2 w-14 bg-gray-800 dark:bg-gray-200" />
           </div>
         </div>
       </div>
     ),
   },
   {
+    id: "profesional",
     name: "Profesional",
-    description: "Elegant dengan header biru navy. Cocok untuk perusahaan B2B.",
-    colors: ["bg-[#1e3a5f]", "bg-[#2d5a8e]", "bg-[#4a90d9]", "bg-gray-50"],
-    features: ["Header biru navy", "Accent biru muda", "Logo placeholder"],
-    badge: "Populer",
+    description: "Elegant dengan header gelap. Cocok untuk perusahaan B2B.",
+    features: ["Header gelap", "Accent terang", "Logo placeholder"],
     preview: (
-      <div className="bg-white rounded-md border overflow-hidden h-full">
-        <div className="bg-[#1e3a5f] p-4">
+      <div className="bg-white border overflow-hidden h-full dark:bg-card">
+        <div className="bg-gray-900 p-4 dark:bg-gray-100">
           <div className="flex justify-between items-start">
             <div>
-              <div className="h-2 w-16 bg-white/80 rounded mb-1" />
-              <div className="h-1.5 w-24 bg-white/50 rounded" />
+              <div className="h-2 w-16 bg-white/80 mb-1 dark:bg-black/80" />
+              <div className="h-1.5 w-24 bg-white/50 dark:bg-black/50" />
             </div>
-            <div className="h-6 w-6 rounded bg-white/20" />
+            <div className="h-6 w-6 bg-white/20 dark:bg-black/20" />
           </div>
         </div>
         <div className="p-4 text-xs">
-          <div className="flex justify-between mb-3 text-gray-600">
+          <div className="flex justify-between mb-3 text-gray-600 dark:text-gray-400">
             <div>
-              <div className="h-1.5 w-16 bg-gray-300 rounded mb-1" />
-              <div className="h-1.5 w-20 bg-gray-200 rounded" />
+              <div className="h-1.5 w-16 bg-gray-300 mb-1 dark:bg-gray-600" />
+              <div className="h-1.5 w-20 bg-gray-200 dark:bg-gray-700" />
             </div>
             <div className="text-right">
-              <div className="h-1.5 w-10 bg-gray-300 rounded mb-1" />
-              <div className="h-1.5 w-14 bg-gray-200 rounded" />
+              <div className="h-1.5 w-10 bg-gray-300 mb-1 dark:bg-gray-600" />
+              <div className="h-1.5 w-14 bg-gray-200 dark:bg-gray-700" />
             </div>
           </div>
           <div className="border-t pt-2">
             <div className="flex justify-between mb-1">
-              <div className="h-1.5 w-20 bg-gray-300 rounded" />
-              <div className="h-1.5 w-8 bg-gray-300 rounded" />
+              <div className="h-1.5 w-20 bg-gray-300 dark:bg-gray-600" />
+              <div className="h-1.5 w-8 bg-gray-300 dark:bg-gray-600" />
             </div>
             <div className="flex justify-between mb-1">
-              <div className="h-1.5 w-16 bg-gray-200 rounded" />
-              <div className="h-1.5 w-10 bg-gray-200 rounded" />
+              <div className="h-1.5 w-16 bg-gray-200 dark:bg-gray-700" />
+              <div className="h-1.5 w-10 bg-gray-200 dark:bg-gray-700" />
             </div>
           </div>
           <div className="border-t mt-2 pt-2 flex justify-between">
-            <div className="h-2 w-12 bg-[#1e3a5f] rounded" />
-            <div className="h-2 w-14 bg-[#1e3a5f] rounded" />
+            <div className="h-2 w-12 bg-gray-900 dark:bg-gray-100" />
+            <div className="h-2 w-14 bg-gray-900 dark:bg-gray-100" />
           </div>
         </div>
       </div>
     ),
   },
   {
+    id: "kreatif",
     name: "Kreatif",
-    description: "Gradient ungu-merah muda. Cocok untuk online shop dan kreatif.",
-    colors: ["bg-purple-500", "bg-pink-400", "bg-fuchsia-400", "bg-white"],
-    features: ["Gradient header", "Rounded corners", "Font modern"],
+    description: "Modern dengan border tegas. Cocok untuk online shop dan kreatif.",
+    features: ["Border tegas", "Layout unik", "Font modern"],
     preview: (
-      <div className="bg-white rounded-md border overflow-hidden h-full">
-        <div className="bg-gradient-to-r from-purple-500 to-pink-400 p-4">
+      <div className="bg-white border-2 border-black overflow-hidden h-full dark:bg-card dark:border-white">
+        <div className="border-b-2 border-black p-4 dark:border-white">
           <div className="flex justify-between items-start">
             <div>
-              <div className="h-2 w-16 bg-white/80 rounded mb-1" />
-              <div className="h-1.5 w-24 bg-white/50 rounded" />
+              <div className="h-2 w-16 bg-black mb-1 dark:bg-white" />
+              <div className="h-1.5 w-24 bg-gray-400" />
             </div>
             <div className="text-right">
-              <div className="h-1.5 w-10 bg-white/50 rounded" />
+              <div className="h-1.5 w-10 bg-gray-400" />
             </div>
           </div>
         </div>
         <div className="p-4 text-xs">
           <div className="flex justify-between mb-3">
             <div>
-              <div className="h-1.5 w-16 bg-gray-300 rounded mb-1" />
-              <div className="h-1.5 w-20 bg-gray-200 rounded" />
+              <div className="h-1.5 w-16 bg-gray-300 mb-1 dark:bg-gray-600" />
+              <div className="h-1.5 w-20 bg-gray-200 dark:bg-gray-700" />
             </div>
             <div className="text-right">
-              <div className="h-1.5 w-10 bg-gray-300 rounded mb-1" />
-              <div className="h-1.5 w-14 bg-gray-200 rounded" />
+              <div className="h-1.5 w-10 bg-gray-300 mb-1 dark:bg-gray-600" />
+              <div className="h-1.5 w-14 bg-gray-200 dark:bg-gray-700" />
             </div>
           </div>
           <div className="border-t pt-2">
             <div className="flex justify-between mb-1">
-              <div className="h-1.5 w-20 bg-gray-300 rounded" />
-              <div className="h-1.5 w-8 bg-gray-300 rounded" />
+              <div className="h-1.5 w-20 bg-gray-300 dark:bg-gray-600" />
+              <div className="h-1.5 w-8 bg-gray-300 dark:bg-gray-600" />
             </div>
             <div className="flex justify-between mb-1">
-              <div className="h-1.5 w-16 bg-gray-200 rounded" />
-              <div className="h-1.5 w-10 bg-gray-200 rounded" />
+              <div className="h-1.5 w-16 bg-gray-200 dark:bg-gray-700" />
+              <div className="h-1.5 w-10 bg-gray-200 dark:bg-gray-700" />
             </div>
           </div>
-          <div className="border-t mt-2 pt-2 flex justify-between">
-            <div className="h-2 w-12 bg-gradient-to-r from-purple-500 to-pink-400 rounded" />
-            <div className="h-2 w-14 bg-gradient-to-r from-purple-500 to-pink-400 rounded" />
+          <div className="border-t-2 border-black mt-2 pt-2 flex justify-between dark:border-white">
+            <div className="h-2 w-12 bg-black dark:bg-white" />
+            <div className="h-2 w-14 bg-black dark:bg-white" />
           </div>
         </div>
       </div>
@@ -139,75 +138,74 @@ const templates = [
 ];
 
 export function Templates() {
+  const [active, setActive] = useState(0);
+
   return (
-    <section id="templates" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+    <section id="templates" className="py-24 px-4 sm:px-6 lg:px-8 border-t">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             3 Template Invoice
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
             Pilih template yang sesuai dengan bisnis Anda. Semua template bisa
             dikustomisasi dengan logo dan warna.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {templates.map((template, index) => (
-            <motion.div
-              key={template.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="group"
-            >
-              <div className="rounded-xl border bg-card overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1">
-                <div className="aspect-[4/3] p-4 bg-muted/20">
-                  {template.preview}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-semibold text-lg">{template.name}</h3>
-                    {template.badge && (
-                      <Badge variant="secondary" className="text-xs">
-                        {template.badge}
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {template.description}
-                  </p>
-                  <div className="flex gap-2 mb-4">
-                    {template.colors.map((color, i) => (
-                      <div
-                        key={i}
-                        className={`w-5 h-5 rounded-full ${color} border`}
-                      />
-                    ))}
-                  </div>
-                  <ul className="space-y-2">
-                    {template.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-center gap-2 text-sm text-muted-foreground"
-                      >
-                        <Check className="h-3.5 w-3.5 text-primary" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <div className="flex border-b-2 mb-8">
+            {templates.map((t, i) => (
+              <button
+                key={t.id}
+                onClick={() => setActive(i)}
+                className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 -mb-[2px] ${
+                  active === i
+                    ? "border-foreground text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {t.name}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="aspect-[4/3] bg-muted/10 border-2 overflow-hidden">
+              {templates[active].preview}
+            </div>
+            <div className="flex flex-col justify-center">
+              <h3 className="text-2xl font-bold mb-2">
+                {templates[active].name}
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                {templates[active].description}
+              </p>
+              <ul className="space-y-3">
+                {templates[active].features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-center gap-3 text-sm"
+                  >
+                    <Check className="h-4 w-4 shrink-0" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
