@@ -3,12 +3,12 @@ import Link from "next/link";
 import { ArrowLeft, Download, Monitor, HardDrive, Wifi } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Download — Invoice",
-  description: "Download Invoice aplikasi desktop untuk Windows.",
+  title: "Download — InvoICE",
+  description: "Download InvoICE aplikasi desktop untuk Windows.",
 };
 
 const GITHUB_RELEASE_URL =
-  "https://github.com/jmahiswara1/InvoICE/releases/download/v1.0.0/Invoice_1.0.0_x64_en-US.msi";
+  "https://github.com/jmahiswara1/InvoICE/releases/download/v1.0.0/InvoICE_1.0.0_x64_en-US.msi";
 
 export default function DownloadPage() {
   return (
@@ -27,7 +27,7 @@ export default function DownloadPage() {
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-4xl font-bold tracking-tight mb-3">
-          Download Invoice
+          Download InvoICE
         </h1>
         <p className="text-lg text-muted-foreground mb-12">
           Aplikasi invoice offline-first untuk UMKM Indonesia.

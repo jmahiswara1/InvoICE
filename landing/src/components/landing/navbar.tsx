@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Template", href: "#templates" },
   { label: "Harga", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
+  { label: "Download", href: "/download" },
 ];
 
 export function Navbar() {
@@ -23,16 +24,16 @@ export function Navbar() {
           <a href="#" className="flex items-center gap-2.5">
             <img
               src="/logo-black.png"
-              alt="Invoice"
+              alt="InvoICE"
               className="h-7 w-auto dark:hidden"
             />
             <img
               src="/logo-white.png"
-              alt="Invoice"
+              alt="InvoICE"
               className="h-7 w-auto hidden dark:block"
             />
             <span className="font-bold text-sm tracking-[0.2em] uppercase">
-              Invoice
+              InvoICE
             </span>
           </a>
 
@@ -50,9 +51,6 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             <ThemeToggle />
-            <Button variant="outline" size="sm">
-              Login
-            </Button>
             <a href="/download">
               <Button size="sm">Download</Button>
             </a>
@@ -93,10 +91,7 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <div className="pt-3 space-y-2 border-t">
-                <Button variant="outline" className="w-full" size="sm">
-                  Login
-                </Button>
+              <div className="pt-3 border-t">
                 <a href="/download">
                   <Button className="w-full" size="sm">
                     Download
