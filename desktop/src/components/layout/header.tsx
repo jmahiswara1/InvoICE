@@ -19,7 +19,7 @@ export function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-3 border-b bg-card">
+    <header className="h-14 flex items-center justify-between px-6 border-b bg-card shrink-0">
       <div className="flex items-center gap-2 flex-1 max-w-md">
         <Search className="h-4 w-4 text-muted-foreground" />
         <input

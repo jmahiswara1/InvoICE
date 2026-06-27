@@ -29,7 +29,7 @@ export function SettingsPage() {
               <input
                 type="text"
                 placeholder="Masukkan nama bisnis Anda"
-                className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                className="w-full mt-1 px-3 py-2 border text-sm"
               />
             </div>
 
@@ -38,7 +38,7 @@ export function SettingsPage() {
               <textarea
                 placeholder="Masukkan alamat bisnis"
                 rows={3}
-                className="w-full mt-1 px-3 py-2 border rounded-lg text-sm resize-none"
+                className="w-full mt-1 px-3 py-2 border text-sm resize-none"
               />
             </div>
 
@@ -48,7 +48,7 @@ export function SettingsPage() {
                 <input
                   type="email"
                   placeholder="email@bisnis.com"
-                  className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                  className="w-full mt-1 px-3 py-2 border text-sm"
                 />
               </div>
               <div>
@@ -56,7 +56,7 @@ export function SettingsPage() {
                 <input
                   type="tel"
                   placeholder="+62 xxx xxxx xxxx"
-                  className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                  className="w-full mt-1 px-3 py-2 border text-sm"
                 />
               </div>
             </div>
@@ -64,7 +64,7 @@ export function SettingsPage() {
             <div>
               <label className="text-sm font-medium">Logo Bisnis</label>
               <div className="mt-1 flex items-center gap-4">
-                <div className="w-20 h-20 border-2 border-dashed rounded-lg flex items-center justify-center text-muted-foreground">
+                <div className="w-20 h-20 border-2 border-dashed flex items-center justify-center text-muted-foreground">
                   <Upload className="h-6 w-6" />
                 </div>
                 <Button variant="outline" size="sm">
@@ -91,7 +91,7 @@ export function SettingsPage() {
                 onChange={(e) =>
                   setLanguage(e.target.value as "id" | "en")
                 }
-                className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                className="w-full mt-1 px-3 py-2 border text-sm"
               >
                 <option value="id">Bahasa Indonesia</option>
                 <option value="en">English</option>
@@ -103,7 +103,7 @@ export function SettingsPage() {
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                className="w-full mt-1 px-3 py-2 border text-sm"
               >
                 <option value="IDR">IDR - Rupiah</option>
                 <option value="USD">USD - Dollar</option>
@@ -167,7 +167,7 @@ export function SettingsPage() {
               <input
                 type="text"
                 defaultValue="INV"
-                className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                className="w-full mt-1 px-3 py-2 border text-sm"
               />
             </div>
             <div>
@@ -177,7 +177,7 @@ export function SettingsPage() {
               <input
                 type="number"
                 defaultValue={11}
-                className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"
+                className="w-full mt-1 px-3 py-2 border text-sm"
               />
             </div>
           </div>
