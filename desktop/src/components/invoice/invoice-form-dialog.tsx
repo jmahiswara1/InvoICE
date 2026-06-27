@@ -2,20 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { X, Plus, Trash2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Client, Invoice, InvoiceItem } from "@/types";
+import type { Client } from "@/types";
 
 interface InvoiceItemForm {
   description: string;
   quantity: number;
   unit_price: number;
-}
-
-interface InvoiceFormDialogProps {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (data: InvoiceFormData) => void;
-  clients: Client[];
-  invoiceNumber: string;
 }
 
 export interface InvoiceFormData {
@@ -33,6 +25,14 @@ export interface InvoiceFormData {
   notes: string;
   terms: string;
   items: InvoiceItemForm[];
+}
+
+interface InvoiceFormDialogProps {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (data: InvoiceFormData) => void;
+  clients: Client[];
+  invoiceNumber: string;
 }
 
 export function InvoiceFormDialog({

@@ -59,7 +59,7 @@ export function TopClientsChart({ data }: TopClientsChartProps) {
             fontSize: 12,
           }}
           cursor={{ fill: "hsl(var(--muted))" }}
-          formatter={(value: number) => [`${value} invoice`, "Total"]}
+          formatter={(value) => [`${value ?? 0} invoice`, "Total"]}
         />
         <Bar dataKey="invoice_count" radius={[0, 0, 0, 0]}>
           {chartData.map((_, index) => (

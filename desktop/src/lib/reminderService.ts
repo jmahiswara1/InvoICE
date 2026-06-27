@@ -39,7 +39,6 @@ export const reminderService = {
   },
 
   async getOverdueAndDueSoon(userId: string, daysAhead: number = 7): Promise<any[]> {
-    const today = new Date().toISOString().split("T")[0];
     const future = new Date(Date.now() + daysAhead * 86400000)
       .toISOString()
       .split("T")[0];

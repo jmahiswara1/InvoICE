@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { Plus, Search, Pencil, Trash2, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ClientFormDialog } from "@/components/client/client-form-dialog";
 import { DeleteDialog } from "@/components/client/delete-dialog";
 import { clientService } from "@/lib/clientService";

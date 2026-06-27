@@ -154,9 +154,9 @@ export function SettingsPage() {
                 )}
               </div>
               <label>
-                <Button variant="outline" size="sm" asChild>
-                  <span>Upload Logo</span>
-                </Button>
+                <span className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-none border bg-background px-3 py-1.5 text-sm font-medium hover:bg-muted cursor-pointer">
+                  Upload Logo
+                </span>
                 <input
                   type="file"
                   accept="image/*"

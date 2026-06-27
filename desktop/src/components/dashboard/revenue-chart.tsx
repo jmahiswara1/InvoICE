@@ -48,12 +48,12 @@ export function RevenueChart({ data }: RevenueChartProps) {
             fontSize: 12,
           }}
           labelStyle={{ color: "hsl(var(--foreground))" }}
-          formatter={(value: number) => [
+          formatter={(value) => [
             new Intl.NumberFormat("id-ID", {
               style: "currency",
               currency: "IDR",
               minimumFractionDigits: 0,
-            }).format(value),
+            }).format(Number(value ?? 0)),
             "Revenue",
           ]}
           cursor={{ fill: "hsl(var(--muted))" }}
