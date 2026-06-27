@@ -17,14 +17,13 @@ import { KreatifTemplate } from "@/templates/kreatif";
 import {
   buildInvoiceTemplateData,
   formatCurrency,
-  formatDate,
   type InvoiceFormData,
 } from "@/templates/types";
 import { invoiceService } from "@/lib/invoiceService";
 import { clientService } from "@/lib/clientService";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { t } from "@/i18n";
-import type { Client, Invoice } from "@/types";
+import type { Client } from "@/types";
 
 export function InvoiceEditorPage() {
   const navigate = useNavigate();

@@ -124,7 +124,7 @@ export const recurringService = {
       client_id: template.client_id,
       invoice_number: invoiceNumber,
       status: "draft",
-      template: template.template,
+      template: template.template as "minimalis" | "profesional" | "kreatif",
       issue_date: today,
       due_date: dueDate,
       currency: template.currency,

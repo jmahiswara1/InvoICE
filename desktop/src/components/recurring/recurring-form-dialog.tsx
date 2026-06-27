@@ -45,7 +45,7 @@ export function RecurringFormDialog({
         interval: template.interval as "monthly" | "quarterly" | "yearly",
         next_generate_date: template.next_generate_date || today,
         currency: template.currency,
-        tax_enabled: template.tax_enabled,
+        tax_enabled: template.tax_enabled === 1,
         tax_rate: template.tax_rate,
         notes: template.notes || "",
         terms: template.terms || "",

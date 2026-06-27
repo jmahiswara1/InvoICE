@@ -1,0 +1,3 @@
+-- Disable RLS for admin tables
+ALTER TABLE admin_users DISABLE ROW LEVEL SECURITY;
+ALTER TABLE broadcasts DISABLE ROW LEVEL SECURITY;

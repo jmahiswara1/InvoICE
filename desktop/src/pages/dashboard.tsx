@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FileText,
-  Users,
   DollarSign,
   Clock,
   Plus,
@@ -37,15 +36,6 @@ function formatCurrency(amount: number): string {
   if (amount >= 1000000) return `Rp ${(amount / 1000000).toFixed(1)}M`;
   if (amount >= 1000) return `Rp ${(amount / 1000).toFixed(0)}K`;
   return `Rp ${amount}`;
-}
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return new Intl.DateTimeFormat("id-ID", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
 }
 
 function daysUntil(dateStr: string): number {

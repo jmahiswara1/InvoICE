@@ -2,7 +2,6 @@ import Papa from "papaparse";
 import ExcelJS from "exceljs";
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile, writeFile } from "@tauri-apps/plugin-fs";
-import type { Client } from "@/types";
 import { clientService } from "./clientService";
 import { invoiceService } from "./invoiceService";
 

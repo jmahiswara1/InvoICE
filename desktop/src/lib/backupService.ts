@@ -1,5 +1,5 @@
 import { save, open, message } from "@tauri-apps/plugin-dialog";
-import { writeTextFile, readTextFile, copyFile, exists, BaseDirectory } from "@tauri-apps/plugin-fs";
+import { copyFile } from "@tauri-apps/plugin-fs";
 import { appDataDir, documentDir, join } from "@tauri-apps/api/path";
 
 const DB_FILENAME = "invoice.db";
