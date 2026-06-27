@@ -1,0 +1,13 @@
+# Proprietary License
+
+Copyright (c) 2026 jmahiswara
+
+All rights reserved.
+
+This software and associated documentation files (the "Software") are
+proprietary and confidential. You may not copy, modify, distribute,
+sell, or lease any part of our Software.
+
+The Software is provided "as is", without warranty of any kind, express
+or implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose and noninfringement.
