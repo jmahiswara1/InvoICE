@@ -28,16 +28,16 @@ export function Footer() {
           <a href="#" className="inline-flex items-center gap-2.5 mb-3">
             <img
               src="/logo-black.png"
-              alt="Invoice"
+              alt="InvoICE"
               className="h-6 w-auto dark:hidden"
             />
             <img
               src="/logo-white.png"
-              alt="Invoice"
+              alt="InvoICE"
               className="h-6 w-auto hidden dark:block"
             />
             <span className="font-bold text-sm tracking-[0.2em] uppercase">
-              Invoice
+              InvoICE
             </span>
           </a>
           <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
