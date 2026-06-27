@@ -11,9 +11,8 @@ const links = {
     { label: "FAQ", href: "#faq" },
   ],
   download: [
-    { label: "Windows (.msi)", href: "#" },
-    { label: "Windows (.exe)", href: "#" },
-    { label: "Changelog", href: "#" },
+    { label: "Windows (.msi)", href: "/download" },
+    { label: "Changelog", href: "https://github.com/jmahiswara1/InvoICE/releases" },
   ],
   support: [
     { label: "Email", href: "mailto:support@invoice.gdg.my.id", icon: Mail },
