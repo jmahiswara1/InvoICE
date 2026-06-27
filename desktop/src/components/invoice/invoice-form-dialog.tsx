@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { X, Plus, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { X, Plus, Trash2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Client, Invoice, InvoiceItem } from "@/types";
 
@@ -41,6 +42,7 @@ export function InvoiceFormDialog({
   clients,
   invoiceNumber,
 }: InvoiceFormDialogProps) {
+  const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
   const dueDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     .toISOString()
@@ -405,11 +407,17 @@ export function InvoiceFormDialog({
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t">
-            <Button type="button" variant="outline" onClick={onClose}>
-              Batal
+          <div className="flex justify-between gap-3 pt-4 border-t">
+            <Button type="button" variant="outline" className="gap-2" onClick={() => navigate("/invoices/new")}>
+              <ExternalLink className="h-4 w-4" />
+              Buka Editor
             </Button>
-            <Button type="submit">Simpan Draft</Button>
+            <div className="flex gap-3">
+              <Button type="button" variant="outline" onClick={onClose}>
+                Batal
+              </Button>
+              <Button type="submit">Simpan Draft</Button>
+            </div>
           </div>
         </form>
       </div>

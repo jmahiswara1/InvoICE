@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Plus,
   Search,
@@ -18,6 +19,7 @@ import { DeleteDialog } from "@/components/client/delete-dialog";
 import { invoiceService } from "@/lib/invoiceService";
 import { clientService } from "@/lib/clientService";
 import { useInvoiceStore } from "@/stores/invoiceStore";
+import { t } from "@/i18n";
 import type { Client, Invoice } from "@/types";
 
 const statusConfig: Record<
@@ -32,6 +34,8 @@ const statusConfig: Record<
 };
 
 export function InvoicesPage() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [showForm, setShowForm] = useState(false);
@@ -40,6 +44,7 @@ export function InvoicesPage() {
   const [actionMenu, setActionMenu] = useState<number | null>(null);
   const [clients, setClients] = useState<Client[]>([]);
   const [invoiceNumber, setInvoiceNumber] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const {
     invoices,
@@ -57,21 +62,25 @@ export function InvoicesPage() {
     loadData();
   }, []);
 
+  useEffect(() => {
+    if (searchParams.get("action") === "new") {
+      openForm();
+      searchParams.delete("action");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams]);
+
   const loadData = async () => {
     setLoading(true);
     try {
       const [invoicesData, clientsData] = await Promise.all([
-        search
-          ? invoiceService.search(userId, search)
-          : statusFilter !== "all"
-          ? invoiceService.getByStatus(userId, statusFilter)
-          : invoiceService.getAll(userId),
-        clientService.getAll(userId),
+        invoiceService.getAll(userId).catch(() => [] as Invoice[]),
+        clientService.getAll(userId).catch(() => [] as Client[]),
       ]);
       setInvoices(invoicesData);
       setClients(clientsData);
-    } catch (error) {
-      console.error("Failed to load data:", error);
+    } catch (err) {
+      console.error("Failed to load data:", err);
     } finally {
       setLoading(false);
     }
@@ -86,6 +95,7 @@ export function InvoicesPage() {
 
   const handleCreate = async (data: any) => {
     try {
+      setError(null);
       const newInvoice = await invoiceService.create({
         ...data,
         user_id: userId,
@@ -114,8 +124,9 @@ export function InvoicesPage() {
       }
 
       setShowForm(false);
-    } catch (error) {
-      console.error("Failed to create invoice:", error);
+    } catch (err) {
+      console.error("Failed to create invoice:", err);
+      setError("Failed to create invoice. Check console for details.");
     }
   };
 
@@ -127,8 +138,8 @@ export function InvoicesPage() {
       await invoiceService.updateStatus(invoice.id, newStatus);
       updateInvoice(invoice.id, { status: newStatus });
       setActionMenu(null);
-    } catch (error) {
-      console.error("Failed to update status:", error);
+    } catch (err) {
+      console.error("Failed to update status:", err);
     }
   };
 
@@ -139,15 +150,27 @@ export function InvoicesPage() {
       removeInvoice(selectedInvoice.id);
       setShowDelete(false);
       setSelectedInvoice(null);
-    } catch (error) {
-      console.error("Failed to delete invoice:", error);
+    } catch (err) {
+      console.error("Failed to delete invoice:", err);
     }
   };
 
   const openForm = async () => {
-    const number = await invoiceService.generateInvoiceNumber(userId);
-    setInvoiceNumber(number);
-    setShowForm(true);
+    try {
+      setError(null);
+      let number: string;
+      try {
+        number = await invoiceService.generateInvoiceNumber(userId);
+      } catch {
+        const year = new Date().getFullYear();
+        number = `INV/APP/${year}/001`;
+      }
+      setInvoiceNumber(number);
+      setShowForm(true);
+    } catch (err) {
+      console.error("Failed to open form:", err);
+      setError("Failed to open invoice form.");
+    }
   };
 
   const formatCurrency = (amount: number, currency = "IDR") => {
@@ -162,21 +185,27 @@ export function InvoicesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Invoices</h1>
-          <p className="text-muted-foreground">Kelola invoice Anda.</p>
+          <h1 className="text-2xl font-bold">{t("invoices.title")}</h1>
+          <p className="text-muted-foreground">{t("invoices.subtitle")}</p>
         </div>
-        <Button className="gap-2" onClick={openForm}>
+        <Button className="gap-2" onClick={() => openForm()}>
           <Plus className="h-4 w-4" />
-          Buat Invoice
+          {t("invoices.create")}
         </Button>
       </div>
+
+      {error && (
+        <div className="border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </div>
+      )}
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2 flex-1 max-w-sm border px-3 py-2">
           <Search className="h-4 w-4 text-muted-foreground" />
           <input
             type="text"
-            placeholder="Cari invoice..."
+            placeholder={t("invoices.search")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
@@ -192,7 +221,7 @@ export function InvoicesPage() {
               onClick={() => setStatusFilter(status)}
             >
               {status === "all"
-                ? "Semua"
+                ? t("invoices.filters.all")
                 : statusConfig[status]?.label || status}
             </Button>
           ))}
@@ -201,7 +230,7 @@ export function InvoicesPage() {
 
       {isLoading ? (
         <div className="text-center py-12 text-muted-foreground">
-          Memuat data...
+          {t("invoices.loading")}
         </div>
       ) : invoices.length === 0 ? (
         <Card>
@@ -209,18 +238,18 @@ export function InvoicesPage() {
             <div className="text-center py-12">
               <p className="text-muted-foreground">
                 {search || statusFilter !== "all"
-                  ? "Tidak ada invoice yang cocok"
-                  : "Belum ada invoice"}
+                  ? t("invoices.noMatch")
+                  : t("invoices.empty")}
               </p>
               <p className="text-sm text-muted-foreground mt-1">
                 {search || statusFilter !== "all"
-                  ? "Coba filter atau kata kunci lain"
-                  : "Buat invoice pertama Anda untuk memulai."}
+                  ? t("invoices.noMatchDesc")
+                  : t("invoices.emptyDesc")}
               </p>
               {!search && statusFilter === "all" && (
-                <Button variant="outline" className="mt-4 gap-2" onClick={openForm}>
+                <Button variant="outline" className="mt-4 gap-2" onClick={() => openForm()}>
                   <Plus className="h-4 w-4" />
-                  Buat Invoice
+                  {t("invoices.create")}
                 </Button>
               )}
             </div>
@@ -233,25 +262,25 @@ export function InvoicesPage() {
               <thead>
                 <tr className="border-b">
                   <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Invoice
+                    {t("invoices.table.invoice")}
                   </th>
                   <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Client
+                    {t("invoices.table.client")}
                   </th>
                   <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Tanggal
+                    {t("invoices.table.date")}
                   </th>
                   <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Jatuh Tempo
+                    {t("invoices.table.dueDate")}
                   </th>
                   <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Total
+                    {t("invoices.table.total")}
                   </th>
                   <th className="text-center text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Status
+                    {t("invoices.table.status")}
                   </th>
                   <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider px-4 py-3">
-                    Aksi
+                    {t("invoices.table.actions")}
                   </th>
                 </tr>
               </thead>
@@ -307,7 +336,7 @@ export function InvoicesPage() {
                                   }
                                 >
                                   <Send className="h-3.5 w-3.5" />
-                                  Mark as Sent
+                                  {t("invoices.actions.markAsSent")}
                                 </button>
                                 <button
                                   className="flex items-center gap-2 w-full px-3 py-2 text-sm text-destructive hover:bg-muted"
@@ -318,7 +347,7 @@ export function InvoicesPage() {
                                   }}
                                 >
                                   <Trash2 className="h-3.5 w-3.5" />
-                                  Hapus
+                                  {t("invoices.actions.delete")}
                                 </button>
                               </>
                             )}
@@ -331,7 +360,7 @@ export function InvoicesPage() {
                                   }
                                 >
                                   <CheckCircle className="h-3.5 w-3.5" />
-                                  Mark as Paid
+                                  {t("invoices.actions.markAsPaid")}
                                 </button>
                                 <button
                                   className="flex items-center gap-2 w-full px-3 py-2 text-sm text-destructive hover:bg-muted"
@@ -340,7 +369,7 @@ export function InvoicesPage() {
                                   }
                                 >
                                   <XCircle className="h-3.5 w-3.5" />
-                                  Cancel
+                                  {t("invoices.actions.cancel")}
                                 </button>
                               </>
                             )}
@@ -352,15 +381,18 @@ export function InvoicesPage() {
                                 }
                               >
                                 <CheckCircle className="h-3.5 w-3.5" />
-                                Mark as Paid
+                                {t("invoices.actions.markAsPaid")}
                               </button>
                             )}
                             <button
                               className="flex items-center gap-2 w-full px-3 py-2 text-sm hover:bg-muted"
-                              onClick={() => setActionMenu(null)}
+                              onClick={() => {
+                                navigate(`/invoices/${invoice.id}/edit`);
+                                setActionMenu(null);
+                              }}
                             >
                               <Eye className="h-3.5 w-3.5" />
-                              Detail
+                              {t("invoices.actions.detail")}
                             </button>
                           </div>
                         )}

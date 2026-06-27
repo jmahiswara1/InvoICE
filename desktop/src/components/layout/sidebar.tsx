@@ -7,18 +7,21 @@ import {
   FileText,
   Users,
   Settings,
+  RefreshCw,
   ChevronLeft,
   ChevronRight,
   LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { t } from "@/i18n";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/" },
-  { icon: FileText, label: "Invoices", href: "/invoices" },
-  { icon: Users, label: "Clients", href: "/clients" },
-  { icon: Settings, label: "Settings", href: "/settings" },
+  { icon: LayoutDashboard, labelKey: "nav.dashboard", href: "/" },
+  { icon: FileText, labelKey: "nav.invoices", href: "/invoices" },
+  { icon: Users, labelKey: "nav.clients", href: "/clients" },
+  { icon: RefreshCw, labelKey: "nav.recurring", href: "/recurring" },
+  { icon: Settings, labelKey: "nav.settings", href: "/settings" },
 ];
 
 export function Sidebar() {
@@ -34,7 +37,7 @@ export function Sidebar() {
     >
       <div className="h-14 flex items-center justify-between px-4 border-b shrink-0">
         {!collapsed && (
-          <span className="font-semibold text-lg">Invoice</span>
+          <span className="font-semibold text-sm tracking-wider uppercase">Invoice</span>
         )}
         <Button
           variant="ghost"
@@ -60,12 +63,12 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-none px-3 py-2 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-foreground text-background"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
               <item.icon className="h-5 w-5 shrink-0" />
-              {!collapsed && <span>{item.label}</span>}
+              {!collapsed && <span>{t(item.labelKey)}</span>}
             </Link>
           );
         })}
@@ -80,7 +83,7 @@ export function Sidebar() {
           )}
         >
           <LogOut className="h-5 w-5 shrink-0" />
-          {!collapsed && <span>Logout</span>}
+          {!collapsed && <span>{t("nav.logout")}</span>}
         </Button>
       </div>
     </aside>
