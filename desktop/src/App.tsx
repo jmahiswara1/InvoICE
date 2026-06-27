@@ -15,13 +15,14 @@ import { useSync } from "@/hooks/useSync";
 function App() {
   const theme = useSettingsStore((s) => s.theme);
   const applyTheme = useSettingsStore((s) => s.applyTheme);
-  const { isAuthenticated, isLoading, checkSession } = useAuthStore();
+  const { isAuthenticated, isLoading, checkSession, initAuthListener } = useAuthStore();
 
   useSync();
 
   useEffect(() => {
     checkSession();
-  }, [checkSession]);
+    initAuthListener();
+  }, [checkSession, initAuthListener]);
 
   useEffect(() => {
     applyTheme();

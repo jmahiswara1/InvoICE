@@ -2,20 +2,17 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import {
-  Mail,
-  Lock,
   Eye,
   EyeOff,
   ArrowRight,
   AlertCircle,
   CheckCircle,
-  ArrowLeft,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 type AuthTab = "login" | "register";
 type LoginMode = "password" | "code";
-type AuthView = "auth" | "forgot-password" | "forgot-sent";
+type AuthView = "auth" | "forgot-password" | "forgot-sent" | "admin";
 
 const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
@@ -183,14 +180,36 @@ export function AuthPage() {
 
     setLoading(true);
     try {
+      // Try Supabase Auth first
       const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-      if (error) {
-        setError(error.message);
-        recordFailure();
-      } else {
+      if (!error) {
         recordSuccess();
+        return;
       }
+
+      // If Supabase Auth fails, check admin_users table
+      const { data: adminUser, error: adminError } = await supabase
+        .from("admin_users")
+        .select("*")
+        .eq("email", email)
+        .single();
+
+      if (adminUser && !adminError && adminUser.password_hash === password) {
+        // Store admin session
+        localStorage.setItem("admin_user", JSON.stringify({
+          id: adminUser.id,
+          email: adminUser.email,
+          name: adminUser.name,
+        }));
+        recordSuccess();
+        window.location.reload();
+        return;
+      }
+
+      // Both failed
+      setError(error.message);
+      recordFailure();
     } catch {
       setError("Gagal login. Cek koneksi internet.");
       recordFailure();
