@@ -1,0 +1,336 @@
+{
+  "app": {
+    "name": "Invoice"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "invoices": "Invoices",
+    "clients": "Clients",
+    "recurring": "Berulang",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Selamat datang kembali! Berikut ringkasan bisnis Anda.",
+    "quickActions": {
+      "addClient": "Tambah Client",
+      "createInvoice": "Buat Invoice"
+    },
+    "stats": {
+      "totalInvoices": "Total Invoice",
+      "revenue": "Revenue",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue",
+      "thisMonth": "Bulan ini",
+      "allInvoices": "Semua invoice",
+      "unpaid": "Belum dibayar",
+      "pastDue": "Jatuh tempo lewat"
+    },
+    "charts": {
+      "monthlyRevenue": "Revenue Bulanan",
+      "monthlyRevenueSub": "12 bulan terakhir",
+      "statusDistribution": "Status Distribusi",
+      "topClients": "Top Clients",
+      "noData": "Belum ada data klien"
+    },
+    "lists": {
+      "recentInvoices": "Invoice Terbaru",
+      "viewAll": "Lihat semua",
+      "upcomingDue": "Jatuh Tempo & Overdue",
+      "sevenDays": "7 hari",
+      "noInvoices": "Belum ada invoice",
+      "noDue": "Tidak ada invoice jatuh tempo",
+      "overdue": "Overdue",
+      "daysLeft": "hari lagi",
+      "today": "Hari ini"
+    },
+    "metrics": {
+      "avgPaymentTime": "Rata-rata Waktu Bayar",
+      "days": "hari",
+      "sentToPaid": "Dari Sent ke Paid"
+    },
+    "loading": "Memuat dashboard..."
+  },
+  "clients": {
+    "title": "Clients",
+    "subtitle": "Kelola data klien Anda.",
+    "add": "Tambah Client",
+    "search": "Cari klien...",
+    "table": {
+      "name": "Nama",
+      "email": "Email",
+      "phone": "Telepon",
+      "city": "Kota",
+      "actions": "Aksi"
+    },
+    "empty": "Belum ada klien",
+    "emptyDesc": "Tambah klien pertama Anda untuk mulai membuat invoice.",
+    "noMatch": "Tidak ada klien yang cocok",
+    "noMatchDesc": "Coba kata kunci lain",
+    "loading": "Memuat data...",
+    "form": {
+      "addTitle": "Tambah Client",
+      "editTitle": "Edit Client",
+      "name": "Nama",
+      "namePlaceholder": "Nama klien atau bisnis",
+      "email": "Email",
+      "emailPlaceholder": "email@contoh.com",
+      "phone": "Telepon",
+      "phonePlaceholder": "+62 xxx xxxx xxxx",
+      "address": "Alamat",
+      "addressPlaceholder": "Alamat lengkap",
+      "city": "Kota",
+      "cityPlaceholder": "Kota",
+      "postalCode": "Kode Pos",
+      "postalCodePlaceholder": "Kode pos",
+      "notes": "Catatan",
+      "notesPlaceholder": "Catatan internal tentang klien ini",
+      "submit": "Tambah Client",
+      "update": "Simpan Perubahan",
+      "cancel": "Batal"
+    },
+    "delete": {
+      "title": "Hapus Client",
+      "confirm": "Apakah Anda yakin ingin menghapus",
+      "warning": "Tindakan ini tidak dapat dibatalkan.",
+      "cancel": "Batal",
+      "submit": "Hapus"
+    }
+  },
+  "invoices": {
+    "title": "Invoices",
+    "subtitle": "Kelola invoice Anda.",
+    "create": "Buat Invoice",
+    "search": "Cari invoice...",
+    "filters": {
+      "all": "Semua",
+      "draft": "Draft",
+      "sent": "Sent",
+      "paid": "Paid",
+      "overdue": "Overdue"
+    },
+    "table": {
+      "invoice": "Invoice",
+      "client": "Client",
+      "date": "Tanggal",
+      "dueDate": "Jatuh Tempo",
+      "total": "Total",
+      "status": "Status",
+      "actions": "Aksi"
+    },
+    "empty": "Belum ada invoice",
+    "emptyDesc": "Buat invoice pertama Anda untuk memulai.",
+    "noMatch": "Tidak ada invoice yang cocok",
+    "noMatchDesc": "Coba filter atau kata kunci lain",
+    "loading": "Memuat data...",
+    "actions": {
+      "markAsSent": "Mark as Sent",
+      "markAsPaid": "Mark as Paid",
+      "cancel": "Cancel",
+      "delete": "Hapus",
+      "detail": "Detail"
+    },
+    "form": {
+      "title": "Buat Invoice",
+      "client": "Client",
+      "selectClient": "Pilih client",
+      "invoiceNumber": "Invoice Number",
+      "template": "Template",
+      "date": "Tanggal",
+      "dueDate": "Jatuh Tempo",
+      "items": "Items",
+      "addItem": "Tambah Item",
+      "description": "Deskripsi item",
+      "qty": "Qty",
+      "price": "Harga",
+      "subtotal": "Subtotal",
+      "discount": "Diskon",
+      "noDiscount": "Tanpa Diskon",
+      "discountPercent": "Diskon (%)",
+      "discountFixed": "Diskon (Rp)",
+      "tax": "PPN",
+      "shipping": "Ongkir",
+      "total": "Total",
+      "notes": "Catatan",
+      "notesPlaceholder": "Catatan untuk klien",
+      "terms": "Syarat & Ketentuan",
+      "termsPlaceholder": "Syarat pembayaran",
+      "save": "Simpan Draft",
+      "cancel": "Batal"
+    },
+    "preview": {
+      "title": "Preview Invoice"
+    }
+  },
+  "recurring": {
+    "title": "Invoice Berulang",
+    "subtitle": "Kelola template invoice berulang.",
+    "add": "Tambah Template",
+    "search": "Cari template...",
+    "empty": "Belum ada template berulang",
+    "emptyDesc": "Buat template untuk invoice bulanan/tahunan.",
+    "loading": "Memuat data...",
+    "table": {
+      "name": "Nama",
+      "client": "Client",
+      "interval": "Interval",
+      "nextDate": "Tanggal Berikutnya",
+      "actions": "Aksi"
+    },
+    "form": {
+      "addTitle": "Tambah Template",
+      "editTitle": "Edit Template",
+      "name": "Nama Template",
+      "namePlaceholder": "cth: Invoice Bulanan Klien A",
+      "client": "Client",
+      "template": "Template",
+      "interval": "Interval",
+      "intervalMonthly": "Bulanan",
+      "intervalQuarterly": "Triwulan",
+      "intervalYearly": "Tahunan",
+      "nextDate": "Tanggal Generate Berikutnya",
+      "active": "Aktif",
+      "items": "Items",
+      "addItem": "Tambah Item",
+      "save": "Simpan",
+      "cancel": "Batal"
+    },
+    "intervals": {
+      "monthly": "Bulanan",
+      "quarterly": "Triwulan",
+      "yearly": "Tahunan"
+    },
+    "actions": {
+      "generateNow": "Generate Sekarang",
+      "edit": "Edit",
+      "delete": "Hapus"
+    },
+    "delete": {
+      "title": "Hapus Template",
+      "confirm": "Apakah Anda yakin ingin menghapus template",
+      "warning": "Tindakan ini tidak dapat dibatalkan."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Kelola pengaturan aplikasi dan bisnis Anda.",
+    "save": "Simpan Pengaturan",
+    "saved": "Pengaturan berhasil disimpan",
+    "business": {
+      "title": "Informasi Bisnis",
+      "name": "Nama Bisnis",
+      "namePlaceholder": "Masukkan nama bisnis Anda",
+      "address": "Alamat",
+      "addressPlaceholder": "Masukkan alamat bisnis",
+      "email": "Email",
+      "emailPlaceholder": "email@bisnis.com",
+      "phone": "Telepon",
+      "phonePlaceholder": "+62 xxx xxxx xxxx",
+      "logo": "Logo Bisnis",
+      "upload": "Upload Logo"
+    },
+    "language": {
+      "title": "Bahasa & Mata Uang",
+      "language": "Bahasa",
+      "currency": "Mata Uang Default",
+      "exchangeRate": "Nilai Tukar (1 USD = ?)",
+      "exchangeRateHint": "Untuk mata uang selain IDR"
+    },
+    "appearance": {
+      "title": "Tampilan",
+      "theme": "Theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "System"
+    },
+    "invoice": {
+      "title": "Invoice Settings",
+      "prefix": "Invoice Prefix",
+      "taxRate": "Tax Rate (%)"
+    },
+    "data": {
+      "title": "Data",
+      "export": "Ekspor Data",
+      "exportClients": "Ekspor Clients (CSV)",
+      "exportInvoices": "Ekspor Invoices (Excel)",
+      "import": "Impor Data",
+      "importClients": "Impor Clients (CSV)",
+      "backup": "Backup Lokal",
+      "backupDesc": "Cadangkan database ke file .sqlite",
+      "restore": "Pulihkan",
+      "restoreDesc": "Pulihkan dari file backup .sqlite",
+      "autoBackup": "Auto-backup mingguan",
+      "autoBackupEnabled": "Aktif"
+    },
+    "reminders": {
+      "title": "Reminder",
+      "defaultDays": "Hari sebelum jatuh tempo",
+      "notification": "Notifikasi desktop"
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "edit": "Edit",
+    "delete": "Hapus",
+    "create": "Buat",
+    "add": "Tambah",
+    "back": "Kembali",
+    "search": "Cari...",
+    "actions": "Aksi",
+    "viewAll": "Lihat semua",
+    "download": "Unduh",
+    "import": "Impor",
+    "export": "Ekspor",
+    "upload": "Upload",
+    "downloadPdf": "Unduh PDF",
+    "generating": "Generating...",
+    "preview": "Pratinjau",
+    "yes": "Ya",
+    "no": "Tidak",
+    "ok": "OK",
+    "close": "Tutup"
+  },
+  "currencies": {
+    "IDR": "IDR - Rupiah",
+    "USD": "USD - Dollar",
+    "EUR": "EUR - Euro",
+    "SGD": "SGD - Dollar Singapura",
+    "MYR": "MYR - Ringgit",
+    "JPY": "JPY - Yen",
+    "GBP": "GBP - Poundsterling"
+  },
+  "templates": {
+    "minimalis": "Minimalis",
+    "profesional": "Profesional",
+    "kreatif": "Kreatif"
+  },
+  "status": {
+    "draft": "Draft",
+    "sent": "Sent",
+    "paid": "Paid",
+    "overdue": "Overdue",
+    "cancelled": "Cancelled"
+  },
+  "months": {
+    "Jan": "Jan",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Apr",
+    "May": "Mei",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Agu",
+    "Sep": "Sep",
+    "Oct": "Okt",
+    "Nov": "Nov",
+    "Dec": "Des"
+  },
+  "reminders": {
+    "dueSoon": "Invoice akan jatuh tempo",
+    "overdue": "Invoice terlambat",
+    "title": "Pengingat Pembayaran"
+  }
+}

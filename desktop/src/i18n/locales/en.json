@@ -1,0 +1,336 @@
+{
+  "app": {
+    "name": "Invoice"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "invoices": "Invoices",
+    "clients": "Clients",
+    "recurring": "Recurring",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Welcome back! Here's your business overview.",
+    "quickActions": {
+      "addClient": "Add Client",
+      "createInvoice": "Create Invoice"
+    },
+    "stats": {
+      "totalInvoices": "Total Invoices",
+      "revenue": "Revenue",
+      "outstanding": "Outstanding",
+      "overdue": "Overdue",
+      "thisMonth": "This month",
+      "allInvoices": "All invoices",
+      "unpaid": "Unpaid",
+      "pastDue": "Past due"
+    },
+    "charts": {
+      "monthlyRevenue": "Monthly Revenue",
+      "monthlyRevenueSub": "Last 12 months",
+      "statusDistribution": "Status Distribution",
+      "topClients": "Top Clients",
+      "noData": "No client data yet"
+    },
+    "lists": {
+      "recentInvoices": "Recent Invoices",
+      "viewAll": "View all",
+      "upcomingDue": "Upcoming & Overdue",
+      "sevenDays": "7 days",
+      "noInvoices": "No invoices yet",
+      "noDue": "No upcoming invoices",
+      "overdue": "Overdue",
+      "daysLeft": "days left",
+      "today": "Today"
+    },
+    "metrics": {
+      "avgPaymentTime": "Avg Payment Time",
+      "days": "days",
+      "sentToPaid": "From Sent to Paid"
+    },
+    "loading": "Loading dashboard..."
+  },
+  "clients": {
+    "title": "Clients",
+    "subtitle": "Manage your client data.",
+    "add": "Add Client",
+    "search": "Search clients...",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "city": "City",
+      "actions": "Actions"
+    },
+    "empty": "No clients yet",
+    "emptyDesc": "Add your first client to start creating invoices.",
+    "noMatch": "No matching clients",
+    "noMatchDesc": "Try a different keyword",
+    "loading": "Loading...",
+    "form": {
+      "addTitle": "Add Client",
+      "editTitle": "Edit Client",
+      "name": "Name",
+      "namePlaceholder": "Client or business name",
+      "email": "Email",
+      "emailPlaceholder": "email@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 xxx xxx xxxx",
+      "address": "Address",
+      "addressPlaceholder": "Full address",
+      "city": "City",
+      "cityPlaceholder": "City",
+      "postalCode": "Postal Code",
+      "postalCodePlaceholder": "Postal code",
+      "notes": "Notes",
+      "notesPlaceholder": "Internal notes about this client",
+      "submit": "Add Client",
+      "update": "Save Changes",
+      "cancel": "Cancel"
+    },
+    "delete": {
+      "title": "Delete Client",
+      "confirm": "Are you sure you want to delete",
+      "warning": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "submit": "Delete"
+    }
+  },
+  "invoices": {
+    "title": "Invoices",
+    "subtitle": "Manage your invoices.",
+    "create": "Create Invoice",
+    "search": "Search invoices...",
+    "filters": {
+      "all": "All",
+      "draft": "Draft",
+      "sent": "Sent",
+      "paid": "Paid",
+      "overdue": "Overdue"
+    },
+    "table": {
+      "invoice": "Invoice",
+      "client": "Client",
+      "date": "Date",
+      "dueDate": "Due Date",
+      "total": "Total",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "empty": "No invoices yet",
+    "emptyDesc": "Create your first invoice to get started.",
+    "noMatch": "No matching invoices",
+    "noMatchDesc": "Try different filters or keywords",
+    "loading": "Loading...",
+    "actions": {
+      "markAsSent": "Mark as Sent",
+      "markAsPaid": "Mark as Paid",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "detail": "Detail"
+    },
+    "form": {
+      "title": "Create Invoice",
+      "client": "Client",
+      "selectClient": "Select client",
+      "invoiceNumber": "Invoice Number",
+      "template": "Template",
+      "date": "Date",
+      "dueDate": "Due Date",
+      "items": "Items",
+      "addItem": "Add Item",
+      "description": "Item description",
+      "qty": "Qty",
+      "price": "Price",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "noDiscount": "No Discount",
+      "discountPercent": "Discount (%)",
+      "discountFixed": "Discount (Amount)",
+      "tax": "Tax",
+      "shipping": "Shipping",
+      "total": "Total",
+      "notes": "Notes",
+      "notesPlaceholder": "Notes for the client",
+      "terms": "Terms & Conditions",
+      "termsPlaceholder": "Payment terms",
+      "save": "Save Draft",
+      "cancel": "Cancel"
+    },
+    "preview": {
+      "title": "Preview Invoice"
+    }
+  },
+  "recurring": {
+    "title": "Recurring Invoices",
+    "subtitle": "Manage recurring invoice templates.",
+    "add": "Add Template",
+    "search": "Search templates...",
+    "empty": "No recurring templates",
+    "emptyDesc": "Create templates for monthly/yearly invoices.",
+    "loading": "Loading...",
+    "table": {
+      "name": "Name",
+      "client": "Client",
+      "interval": "Interval",
+      "nextDate": "Next Date",
+      "actions": "Actions"
+    },
+    "form": {
+      "addTitle": "Add Template",
+      "editTitle": "Edit Template",
+      "name": "Template Name",
+      "namePlaceholder": "e.g: Monthly Invoice Client A",
+      "client": "Client",
+      "template": "Template",
+      "interval": "Interval",
+      "intervalMonthly": "Monthly",
+      "intervalQuarterly": "Quarterly",
+      "intervalYearly": "Yearly",
+      "nextDate": "Next Generate Date",
+      "active": "Active",
+      "items": "Items",
+      "addItem": "Add Item",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "intervals": {
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "yearly": "Yearly"
+    },
+    "actions": {
+      "generateNow": "Generate Now",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "delete": {
+      "title": "Delete Template",
+      "confirm": "Are you sure you want to delete template",
+      "warning": "This action cannot be undone."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage application and business settings.",
+    "save": "Save Settings",
+    "saved": "Settings saved successfully",
+    "business": {
+      "title": "Business Information",
+      "name": "Business Name",
+      "namePlaceholder": "Enter your business name",
+      "address": "Address",
+      "addressPlaceholder": "Enter business address",
+      "email": "Email",
+      "emailPlaceholder": "email@business.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 xxx xxx xxxx",
+      "logo": "Business Logo",
+      "upload": "Upload Logo"
+    },
+    "language": {
+      "title": "Language & Currency",
+      "language": "Language",
+      "currency": "Default Currency",
+      "exchangeRate": "Exchange Rate (1 USD = ?)",
+      "exchangeRateHint": "For currencies other than IDR"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "theme": "Theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "System"
+    },
+    "invoice": {
+      "title": "Invoice Settings",
+      "prefix": "Invoice Prefix",
+      "taxRate": "Tax Rate (%)"
+    },
+    "data": {
+      "title": "Data",
+      "export": "Export Data",
+      "exportClients": "Export Clients (CSV)",
+      "exportInvoices": "Export Invoices (Excel)",
+      "import": "Import Data",
+      "importClients": "Import Clients (CSV)",
+      "backup": "Local Backup",
+      "backupDesc": "Backup database to .sqlite file",
+      "restore": "Restore",
+      "restoreDesc": "Restore from backup .sqlite file",
+      "autoBackup": "Weekly auto-backup",
+      "autoBackupEnabled": "Enabled"
+    },
+    "reminders": {
+      "title": "Reminders",
+      "defaultDays": "Days before due date",
+      "notification": "Desktop notifications"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create",
+    "add": "Add",
+    "back": "Back",
+    "search": "Search...",
+    "actions": "Actions",
+    "viewAll": "View all",
+    "download": "Download",
+    "import": "Import",
+    "export": "Export",
+    "upload": "Upload",
+    "downloadPdf": "Download PDF",
+    "generating": "Generating...",
+    "preview": "Preview",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "close": "Close"
+  },
+  "currencies": {
+    "IDR": "IDR - Rupiah",
+    "USD": "USD - Dollar",
+    "EUR": "EUR - Euro",
+    "SGD": "SGD - Singapore Dollar",
+    "MYR": "MYR - Ringgit",
+    "JPY": "JPY - Yen",
+    "GBP": "GBP - Pound Sterling"
+  },
+  "templates": {
+    "minimalis": "Minimalis",
+    "profesional": "Profesional",
+    "kreatif": "Kreatif"
+  },
+  "status": {
+    "draft": "Draft",
+    "sent": "Sent",
+    "paid": "Paid",
+    "overdue": "Overdue",
+    "cancelled": "Cancelled"
+  },
+  "months": {
+    "Jan": "Jan",
+    "Feb": "Feb",
+    "Mar": "Mar",
+    "Apr": "Apr",
+    "May": "May",
+    "Jun": "Jun",
+    "Jul": "Jul",
+    "Aug": "Aug",
+    "Sep": "Sep",
+    "Oct": "Oct",
+    "Nov": "Nov",
+    "Dec": "Dec"
+  },
+  "reminders": {
+    "dueSoon": "Invoice due soon",
+    "overdue": "Invoice overdue",
+    "title": "Payment Reminders"
+  }
+}
