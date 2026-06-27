@@ -19,6 +19,7 @@ import { DeleteDialog } from "@/components/client/delete-dialog";
 import { invoiceService } from "@/lib/invoiceService";
 import { clientService } from "@/lib/clientService";
 import { useInvoiceStore } from "@/stores/invoiceStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 import { t } from "@/i18n";
 import type { Client, Invoice } from "@/types";
 
@@ -163,7 +164,8 @@ export function InvoicesPage() {
         number = await invoiceService.generateInvoiceNumber(userId);
       } catch {
         const year = new Date().getFullYear();
-        number = `INV/APP/${year}/001`;
+        const prefix = useSettingsStore.getState().invoicePrefix || "INV";
+        number = `${prefix}/${year}/001`;
       }
       setInvoiceNumber(number);
       setShowForm(true);

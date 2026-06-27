@@ -121,9 +121,10 @@ export function InvoiceEditorPage() {
           }));
         } catch {
           const year = new Date().getFullYear();
+          const prefix = useSettingsStore.getState().invoicePrefix || "INV";
           setForm((prev) => ({
             ...prev,
-            invoice_number: `INV/APP/${year}/001`,
+            invoice_number: `${prefix}/${year}/001`,
             client_id: clientsData[0]?.id || 0,
           }));
         }
