@@ -14,28 +14,39 @@ export function useAdminAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem("admin_user");
-    if (stored) {
-      try {
+    try {
+      const stored = window.localStorage.getItem("admin_user");
+      if (stored) {
         setAdmin(JSON.parse(stored));
-      } catch {
-        localStorage.removeItem("admin_user");
       }
+    } catch (err) {
+      console.error("Failed to load admin from storage:", err);
     }
     setIsLoading(false);
   }, []);
 
   const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
+      console.log("Attempting login with:", email);
+
       const { data, error } = await supabase
         .from("admin_users")
         .select("*")
         .eq("email", email)
         .single();
 
-      if (error || !data) {
+      console.log("Supabase response:", { data, error });
+
+      if (error) {
+        console.error("Supabase query error:", error);
+        return { success: false, error: `Database error: ${error.message}` };
+      }
+
+      if (!data) {
         return { success: false, error: "Email tidak ditemukan." };
       }
+
+      console.log("Found user:", data.email, "Checking password...");
 
       if (data.password_hash !== password) {
         return { success: false, error: "Password salah." };
@@ -47,17 +58,17 @@ export function useAdminAuth() {
         name: data.name,
       };
 
-      localStorage.setItem("admin_user", JSON.stringify(adminUser));
+      window.localStorage.setItem("admin_user", JSON.stringify(adminUser));
       setAdmin(adminUser);
       return { success: true };
     } catch (err) {
       console.error("Login error:", err);
-      return { success: false, error: "Gagal login. Cek koneksi internet." };
+      return { success: false, error: `Gagal login: ${(err as Error).message}` };
     }
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("admin_user");
+    window.localStorage.removeItem("admin_user");
     setAdmin(null);
   }, []);
 
