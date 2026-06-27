@@ -23,10 +23,12 @@ export function CTA() {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-4">
-          <Button size="lg" className="gap-2">
-            <Download className="h-4 w-4" />
-            Download untuk Windows
-          </Button>
+          <a href="/download">
+            <Button size="lg" className="gap-2">
+              <Download className="h-4 w-4" />
+              Download untuk Windows
+            </Button>
+          </a>
           <a href="#pricing">
             <Button variant="outline" size="lg" className="gap-2">
               Lihat Harga

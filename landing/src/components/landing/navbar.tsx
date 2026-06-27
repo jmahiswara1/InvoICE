@@ -53,7 +53,9 @@ export function Navbar() {
             <Button variant="outline" size="sm">
               Login
             </Button>
-            <Button size="sm">Download</Button>
+            <a href="/download">
+              <Button size="sm">Download</Button>
+            </a>
           </div>
 
           <div className="flex md:hidden items-center gap-2">
@@ -95,9 +97,11 @@ export function Navbar() {
                 <Button variant="outline" className="w-full" size="sm">
                   Login
                 </Button>
-                <Button className="w-full" size="sm">
-                  Download
-                </Button>
+                <a href="/download">
+                  <Button className="w-full" size="sm">
+                    Download
+                  </Button>
+                </a>
               </div>
             </div>
           </motion.div>

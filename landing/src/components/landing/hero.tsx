@@ -49,10 +49,12 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button size="lg" className="gap-2">
-              <Download className="h-4 w-4" />
-              Download untuk Windows
-            </Button>
+            <a href="/download">
+              <Button size="lg" className="gap-2">
+                <Download className="h-4 w-4" />
+                Download untuk Windows
+              </Button>
+            </a>
             <a href="#features">
               <Button variant="outline" size="lg" className="gap-2">
                 Lihat Fitur
