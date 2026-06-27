@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Template", href: "#templates" },
   { label: "Harga", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
-  { label: "Download", href: "/download" },
 ];
 
 export function Navbar() {
