@@ -7,15 +7,21 @@ import { ClientsPage } from "@/pages/clients";
 import { RecurringPage } from "@/pages/recurring";
 import { SettingsPage } from "@/pages/settings";
 import { InvoiceEditorPage } from "@/pages/invoice-editor";
+import { AuthPage } from "@/pages/auth";
+import { useAuthStore } from "@/stores/authStore";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useSync } from "@/hooks/useSync";
 
 function App() {
   const theme = useSettingsStore((s) => s.theme);
   const applyTheme = useSettingsStore((s) => s.applyTheme);
+  const { isAuthenticated, isLoading, checkSession } = useAuthStore();
 
-  // Initialize auto-sync
   useSync();
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
 
   useEffect(() => {
     applyTheme();
@@ -35,6 +41,18 @@ function App() {
   useEffect(() => {
     applyLanguage();
   }, [language, applyLanguage]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AuthPage />;
+  }
 
   return (
     <BrowserRouter>
