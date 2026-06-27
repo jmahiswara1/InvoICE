@@ -18,6 +18,9 @@ interface SettingsState {
   businessAddress: string;
   businessEmail: string;
   businessPhone: string;
+  licenseKey: string | null;
+  licenseType: "free" | "paid";
+  lastSyncAt: string | null;
   setLanguage: (lang: "id" | "en") => void;
   setCurrency: (currency: string) => void;
   setTheme: (theme: Theme) => void;
@@ -33,6 +36,9 @@ interface SettingsState {
     businessEmail: string;
     businessPhone: string;
   }) => void;
+  setLicenseKey: (key: string | null) => void;
+  setLicenseType: (type: "free" | "paid") => void;
+  setLastSyncAt: (at: string | null) => void;
   applyTheme: () => void;
   applyLanguage: () => void;
 }
@@ -67,6 +73,9 @@ export const useSettingsStore = create<SettingsState>()(
       businessAddress: "",
       businessEmail: "",
       businessPhone: "",
+      licenseKey: null,
+      licenseType: "free",
+      lastSyncAt: null,
       setLanguage: (language) => {
         set({ language });
         i18n.changeLanguage(language);
@@ -90,6 +99,9 @@ export const useSettingsStore = create<SettingsState>()(
           businessEmail: info.businessEmail,
           businessPhone: info.businessPhone,
         }),
+      setLicenseKey: (licenseKey) => set({ licenseKey }),
+      setLicenseType: (licenseType) => set({ licenseType }),
+      setLastSyncAt: (lastSyncAt) => set({ lastSyncAt }),
       applyTheme: () => {
         applyThemeToDom(get().theme);
       },

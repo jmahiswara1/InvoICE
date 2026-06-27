@@ -8,10 +8,14 @@ import { RecurringPage } from "@/pages/recurring";
 import { SettingsPage } from "@/pages/settings";
 import { InvoiceEditorPage } from "@/pages/invoice-editor";
 import { useSettingsStore } from "@/stores/settingsStore";
+import { useSync } from "@/hooks/useSync";
 
 function App() {
   const theme = useSettingsStore((s) => s.theme);
   const applyTheme = useSettingsStore((s) => s.applyTheme);
+
+  // Initialize auto-sync
+  useSync();
 
   useEffect(() => {
     applyTheme();

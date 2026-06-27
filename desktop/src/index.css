@@ -114,6 +114,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.25 0 0);
   --sidebar-ring: oklch(0.985 0 0);
+  color-scheme: dark;
 }
 
 @layer base {
@@ -125,5 +126,9 @@
   }
   html {
     @apply font-sans;
+  }
+  select,
+  select option {
+    @apply bg-background text-foreground;
   }
 }

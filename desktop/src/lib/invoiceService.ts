@@ -1,4 +1,5 @@
 import { query, execute } from "@/lib/database";
+import { useSettingsStore } from "@/stores/settingsStore";
 import type { Invoice, InvoiceItem } from "@/types";
 
 export const invoiceService = {
@@ -37,13 +38,14 @@ export const invoiceService = {
 
   async generateInvoiceNumber(userId: string): Promise<string> {
     const year = new Date().getFullYear();
+    const prefix = useSettingsStore.getState().invoicePrefix || "INV";
     const results = await query<{ count: number }>(
       `SELECT COUNT(*) as count FROM invoices 
        WHERE user_id = $1 AND invoice_number LIKE $2`,
       [userId, `%/${year}/%`]
     );
     const seq = (results[0]?.count || 0) + 1;
-    return `INV/APP/${year}/${String(seq).padStart(3, "0")}`;
+    return `${prefix}/${year}/${String(seq).padStart(3, "0")}`;
   },
 
   async create(
