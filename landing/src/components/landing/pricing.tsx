@@ -144,13 +144,27 @@ export function Pricing() {
                 ))}
               </ul>
 
-              <Button
-                className="w-full"
-                variant={plan.popular ? "secondary" : "outline"}
-                size="lg"
-              >
-                {plan.cta}
-              </Button>
+              {plan.popular ? (
+                <Button
+                  className="w-full"
+                  variant="secondary"
+                  size="lg"
+                  disabled
+                  title="Segera hadir"
+                >
+                  {plan.cta}
+                </Button>
+              ) : (
+                <a href="/download" className="w-full">
+                  <Button
+                    className="w-full"
+                    variant="outline"
+                    size="lg"
+                  >
+                    {plan.cta}
+                  </Button>
+                </a>
+              )}
             </motion.div>
           ))}
         </div>
