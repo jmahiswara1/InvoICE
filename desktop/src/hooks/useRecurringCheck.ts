@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { recurringService } from "@/lib/recurringService";
+import { getLocalUserId } from "@/lib/userId";
 
 export function useRecurringCheck(onGenerate?: () => void) {
-  const userId = "local-user";
+  const userId = getLocalUserId();
 
   useEffect(() => {
     const checkRecurring = async () => {

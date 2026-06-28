@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SectionHeader } from "@/components/ui/section-header";
 
 const faqs = [
   {
@@ -60,14 +61,11 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Pertanyaan Umum
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Jawaban untuk pertanyaan yang sering ditanyakan.
-          </p>
+          <SectionHeader
+            title="Pertanyaan Umum"
+            description="Jawaban untuk pertanyaan yang sering ditanyakan."
+          />
         </motion.div>
 
         <motion.div

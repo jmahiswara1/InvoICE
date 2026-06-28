@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 import { query, execute } from "./database";
 import { useSettingsStore } from "@/stores/settingsStore";
-import { getLocalUserId } from "./userId";
+import { getLocalUserId, LOCAL_USER_UUID } from "./userId";
 import type { Client, Invoice, InvoiceItem } from "@/types";
 
 export interface SyncResult {
@@ -20,7 +20,7 @@ export const syncService = {
     try {
       const localClients = await query<Client>(
         "SELECT * FROM clients WHERE user_id = $1",
-        ["local-user"]
+        [LOCAL_USER_UUID]
       );
 
       for (const client of localClients) {
@@ -74,7 +74,7 @@ export const syncService = {
     try {
       const localInvoices = await query<Invoice>(
         "SELECT * FROM invoices WHERE user_id = $1",
-        ["local-user"]
+        [LOCAL_USER_UUID]
       );
 
       for (const invoice of localInvoices) {
@@ -190,7 +190,7 @@ export const syncService = {
         try {
           const local = await query<Client>(
             "SELECT * FROM clients WHERE id = $1 AND user_id = $2",
-            [cloud.local_id, "local-user"]
+            [cloud.local_id, LOCAL_USER_UUID]
           );
 
           if (local.length === 0) {
@@ -205,7 +205,7 @@ export const syncService = {
             if (cloudUpdated > localUpdated) {
               await execute(
                 "UPDATE clients SET name = $1, email = $2, phone = $3, address = $4, city = $5, postal_code = $6, notes = $7, updated_at = $8 WHERE id = $9 AND user_id = $10",
-                [cloud.name, cloud.email, cloud.phone, cloud.address, cloud.city, cloud.postal_code, cloud.notes, cloud.updated_at, cloud.local_id, "local-user"]
+                [cloud.name, cloud.email, cloud.phone, cloud.address, cloud.city, cloud.postal_code, cloud.notes, cloud.updated_at, cloud.local_id, LOCAL_USER_UUID]
               );
             }
           }
@@ -240,13 +240,13 @@ export const syncService = {
         try {
           const local = await query<Invoice>(
             "SELECT * FROM invoices WHERE id = $1 AND user_id = $2",
-            [cloud.local_id, "local-user"]
+            [cloud.local_id, LOCAL_USER_UUID]
           );
 
           if (local.length === 0) {
             await execute(
               "INSERT INTO invoices (id, user_id, client_id, invoice_number, status, template, issue_date, due_date, currency, exchange_rate, subtotal, discount_type, discount_value, discount_amount, tax_enabled, tax_rate, tax_amount, shipping_cost, total, notes, terms, is_recurring, recurring_interval, recurring_next_date, paid_at, sent_at, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28)",
-              [cloud.local_id, "local-user", cloud.client_local_id, cloud.invoice_number, cloud.status, cloud.template, cloud.issue_date, cloud.due_date, cloud.currency, cloud.exchange_rate, cloud.subtotal, cloud.discount_type, cloud.discount_value, cloud.discount_amount, cloud.tax_enabled, cloud.tax_rate, cloud.tax_amount, cloud.shipping_cost, cloud.total, cloud.notes, cloud.terms, cloud.is_recurring, cloud.recurring_interval, cloud.recurring_next_date, cloud.paid_at, cloud.sent_at, cloud.created_at, cloud.updated_at]
+                [cloud.local_id, LOCAL_USER_UUID, cloud.client_local_id, cloud.invoice_number, cloud.status, cloud.template, cloud.issue_date, cloud.due_date, cloud.currency, cloud.exchange_rate, cloud.subtotal, cloud.discount_type, cloud.discount_value, cloud.discount_amount, cloud.tax_enabled, cloud.tax_rate, cloud.tax_amount, cloud.shipping_cost, cloud.total, cloud.notes, cloud.terms, cloud.is_recurring, cloud.recurring_interval, cloud.recurring_next_date, cloud.paid_at, cloud.sent_at, cloud.created_at, cloud.updated_at]
             );
           } else {
             const localUpdated = new Date(local[0].updated_at).getTime();
@@ -255,7 +255,7 @@ export const syncService = {
             if (cloudUpdated > localUpdated) {
               await execute(
                 "UPDATE invoices SET status = $1, subtotal = $2, discount_amount = $3, tax_amount = $4, shipping_cost = $5, total = $6, paid_at = $7, sent_at = $8, updated_at = $9 WHERE id = $10 AND user_id = $11",
-                [cloud.status, cloud.subtotal, cloud.discount_amount, cloud.tax_amount, cloud.shipping_cost, cloud.total, cloud.paid_at, cloud.sent_at, cloud.updated_at, cloud.local_id, "local-user"]
+                [cloud.status, cloud.subtotal, cloud.discount_amount, cloud.tax_amount, cloud.shipping_cost, cloud.total, cloud.paid_at, cloud.sent_at, cloud.updated_at, cloud.local_id, LOCAL_USER_UUID]
               );
             }
           }

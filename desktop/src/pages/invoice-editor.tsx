@@ -16,11 +16,12 @@ import { ProfesionalTemplate } from "@/templates/profesional";
 import { KreatifTemplate } from "@/templates/kreatif";
 import {
   buildInvoiceTemplateData,
-  formatCurrency,
   type InvoiceFormData,
 } from "@/templates/types";
+import { formatCurrency } from "@/lib/currencyService";
 import { invoiceService } from "@/lib/invoiceService";
 import { clientService } from "@/lib/clientService";
+import { getLocalUserId } from "@/lib/userId";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { t } from "@/i18n";
 import type { Client } from "@/types";
@@ -78,7 +79,7 @@ export function InvoiceEditorPage() {
   const initEditor = async () => {
     setIsLoading(true);
     setError(null);
-    const userId = "local-user";
+    const userId = getLocalUserId();
     try {
       const clientsData = await clientService.getAll(userId).catch(() => []);
       setClients(clientsData);
@@ -192,7 +193,7 @@ export function InvoiceEditorPage() {
 
   const handleSave = async (markAsSent = false) => {
     setError(null);
-    const userId = "local-user";
+    const userId = getLocalUserId();
     try {
       if (editId) {
         await invoiceService.delete(editId);

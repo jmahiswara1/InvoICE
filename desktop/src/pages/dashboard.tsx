@@ -12,10 +12,15 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
 import { RevenueChart } from "@/components/dashboard/revenue-chart";
 import { StatusChart } from "@/components/dashboard/status-chart";
 import { TopClientsChart } from "@/components/dashboard/top-clients-chart";
 import { dashboardService } from "@/lib/dashboardService";
+import { statusConfig, type InvoiceWithClient } from "@/lib/constants";
+import { formatCurrency, formatCurrencyShort } from "@/lib/currencyService";
+import { daysUntil } from "@/lib/invoiceCalc";
+import { getLocalUserId } from "@/lib/userId";
 import type {
   SummaryStats,
   MonthlyRevenue,
@@ -23,26 +28,6 @@ import type {
   TopClient,
 } from "@/lib/dashboardService";
 import type { Invoice } from "@/types";
-
-const statusConfig: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
-  draft: { label: "Draft", variant: "secondary" },
-  sent: { label: "Sent", variant: "default" },
-  paid: { label: "Paid", variant: "outline" },
-  overdue: { label: "Overdue", variant: "destructive" },
-  cancelled: { label: "Cancelled", variant: "secondary" },
-};
-
-function formatCurrency(amount: number): string {
-  if (amount >= 1000000) return `Rp ${(amount / 1000000).toFixed(1)}M`;
-  if (amount >= 1000) return `Rp ${(amount / 1000).toFixed(0)}K`;
-  return `Rp ${amount}`;
-}
-
-function daysUntil(dateStr: string): number {
-  const due = new Date(dateStr);
-  const now = new Date();
-  return Math.ceil((due.getTime() - now.getTime()) / 86400000);
-}
 
 export function DashboardPage() {
   const navigate = useNavigate();
@@ -56,7 +41,7 @@ export function DashboardPage() {
   const [avgPaymentTime, setAvgPaymentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userId = "local-user";
+  const userId = getLocalUserId();
 
   useEffect(() => {
     loadDashboard();
@@ -109,13 +94,13 @@ export function DashboardPage() {
     },
     {
       title: "Revenue",
-      value: formatCurrency(stats?.revenue_this_month || 0),
+      value: formatCurrencyShort(stats?.revenue_this_month || 0),
       icon: DollarSign,
       sub: "Bulan ini",
     },
     {
       title: "Outstanding",
-      value: formatCurrency(stats?.outstanding_amount || 0),
+      value: formatCurrencyShort(stats?.outstanding_amount || 0),
       icon: TrendingUp,
       sub: "Belum dibayar",
     },
@@ -210,13 +195,15 @@ export function DashboardPage() {
               </Button>
             </div>
             {recentInvoices.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <FileText className="h-10 w-10 mx-auto mb-2 opacity-30" />
-                <p className="text-sm">Belum ada invoice</p>
-              </div>
+              <EmptyState
+                icon={FileText}
+                title="Belum ada invoice"
+              />
             ) : (
               <div className="space-y-2">
-                {recentInvoices.map((inv) => (
+                {recentInvoices.map((inv) => {
+                  const invoice = inv as InvoiceWithClient;
+                  return (
                   <div
                     key={inv.id}
                     className="flex items-center justify-between border-b last:border-b-0 pb-2 last:pb-0"
@@ -226,7 +213,7 @@ export function DashboardPage() {
                         {inv.invoice_number}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {(inv as any).client_name || "Unknown"}
+                        {invoice.client_name || "Unknown"}
                       </p>
                     </div>
                     <div className="text-right">
@@ -238,7 +225,8 @@ export function DashboardPage() {
                       </Badge>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </CardContent>
@@ -254,13 +242,15 @@ export function DashboardPage() {
               </div>
             </div>
             {overdueInvoices.length === 0 && upcomingDue.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">
-                <Clock className="h-10 w-10 mx-auto mb-2 opacity-30" />
-                <p className="text-sm">Tidak ada invoice jatuh tempo</p>
-              </div>
+              <EmptyState
+                icon={Clock}
+                title="Tidak ada invoice jatuh tempo"
+              />
             ) : (
               <div className="space-y-2">
-                {overdueInvoices.slice(0, 3).map((inv) => (
+                {overdueInvoices.slice(0, 3).map((inv) => {
+                  const invoice = inv as InvoiceWithClient;
+                  return (
                   <div
                     key={inv.id}
                     className="flex items-center justify-between border-l-2 border-destructive pl-3"
@@ -270,7 +260,7 @@ export function DashboardPage() {
                         {inv.invoice_number}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {(inv as any).client_name || "Unknown"}
+                        {invoice.client_name || "Unknown"}
                       </p>
                     </div>
                     <div className="text-right">
@@ -280,8 +270,10 @@ export function DashboardPage() {
                       <p className="text-xs text-destructive">Overdue</p>
                     </div>
                   </div>
-                ))}
+                  );
+                })}
                 {upcomingDue.slice(0, 3).map((inv) => {
+                  const invoice = inv as InvoiceWithClient;
                   const days = daysUntil(inv.due_date);
                   return (
                     <div
@@ -293,7 +285,7 @@ export function DashboardPage() {
                           {inv.invoice_number}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {(inv as any).client_name || "Unknown"}
+                          {invoice.client_name || "Unknown"}
                         </p>
                       </div>
                       <div className="text-right">

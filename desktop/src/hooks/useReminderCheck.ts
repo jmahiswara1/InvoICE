@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { sendNotification, isPermissionGranted, requestPermission } from "@tauri-apps/plugin-notification";
 import { reminderService } from "@/lib/reminderService";
+import { getLocalUserId } from "@/lib/userId";
 import { useSettingsStore } from "@/stores/settingsStore";
 
 export function useReminderCheck() {
-  const userId = "local-user";
+  const userId = getLocalUserId();
   const reminderDays = useSettingsStore((s) => s.reminderDays);
   const reminderNotifications = useSettingsStore((s) => s.reminderNotifications);
 

@@ -4,16 +4,10 @@ import { useState, useEffect } from "react";
 import { Users, FileText, DollarSign, Key } from "lucide-react";
 import { AdminLayout } from "@/components/layout/admin-layout";
 import { supabase } from "@/lib/supabase";
-
-interface Stats {
-  totalUsers: number;
-  totalInvoices: number;
-  totalRevenue: number;
-  activeLicenses: number;
-}
+import type { AdminStats } from "@/lib/types";
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<Stats>({
+  const [stats, setStats] = useState<AdminStats>({
     totalUsers: 0,
     totalInvoices: 0,
     totalRevenue: 0,

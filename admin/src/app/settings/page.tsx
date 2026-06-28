@@ -4,17 +4,12 @@ import { useState, useEffect } from "react";
 import { Save, Send, RefreshCw } from "lucide-react";
 import { AdminLayout } from "@/components/layout/admin-layout";
 import { supabase } from "@/lib/supabase";
-
-interface Broadcast {
-  id: string;
-  message: string;
-  sent_at: string;
-}
+import type { AdminBroadcast } from "@/lib/types";
 
 export default function SettingsPage() {
   const [globalLimit, setGlobalLimit] = useState(5);
   const [broadcastMessage, setBroadcastMessage] = useState("");
-  const [broadcasts, setBroadcasts] = useState<Broadcast[]>([]);
+  const [broadcasts, setBroadcasts] = useState<AdminBroadcast[]>([]);
   const [saving, setSaving] = useState(false);
   const [sending, setSending] = useState(false);
   const [saved, setSaved] = useState(false);

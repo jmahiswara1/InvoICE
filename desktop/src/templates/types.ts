@@ -53,13 +53,8 @@ export interface InvoiceTemplateData {
   };
 }
 
-export function formatCurrency(amount: number, currency = "IDR"): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency,
-    minimumFractionDigits: 0,
-  }).format(amount);
-}
+export { formatCurrency } from "@/lib/currencyService";
+import { calculateInvoiceTotals } from "@/lib/invoiceCalc";
 
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
@@ -100,20 +95,14 @@ export function buildInvoiceTemplateData(
     amount: item.quantity * item.unit_price,
   }));
 
-  const subtotal = items.reduce((sum, item) => sum + item.amount, 0);
-
-  let discount_amount = 0;
-  if (form.discount_type === "percentage") {
-    discount_amount = (subtotal * form.discount_value) / 100;
-  } else if (form.discount_type === "fixed") {
-    discount_amount = form.discount_value;
-  }
-
-  const afterDiscount = subtotal - discount_amount;
-  const tax_amount = form.tax_enabled
-    ? (afterDiscount * form.tax_rate) / 100
-    : 0;
-  const total = afterDiscount + tax_amount + form.shipping_cost;
+  const totals = calculateInvoiceTotals(
+    form.items,
+    form.discount_type,
+    form.discount_value,
+    form.tax_enabled,
+    form.tax_rate,
+    form.shipping_cost
+  );
 
   return {
     invoice: {
@@ -121,15 +110,15 @@ export function buildInvoiceTemplateData(
       issue_date: form.issue_date,
       due_date: form.due_date,
       currency: form.currency,
-      subtotal,
+      subtotal: totals.subtotal,
       discount_type: form.discount_type,
       discount_value: form.discount_value,
-      discount_amount,
+      discount_amount: totals.discount_amount,
       tax_enabled: form.tax_enabled,
       tax_rate: form.tax_rate,
-      tax_amount,
+      tax_amount: totals.tax_amount,
       shipping_cost: form.shipping_cost,
-      total,
+      total: totals.total,
       notes: form.notes || null,
       terms: form.terms || null,
       status: "draft",

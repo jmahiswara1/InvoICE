@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { SectionHeader } from "@/components/ui/section-header";
 
 const templates = [
   {
@@ -261,15 +262,11 @@ export function Templates() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            3 Template Invoice
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
-            Pilih template yang sesuai dengan bisnis Anda. Semua template bisa
-            dikustomisasi dengan logo dan warna.
-          </p>
+          <SectionHeader
+            title="3 Template Invoice"
+            description="Pilih template yang sesuai dengan bisnis Anda. Semua template bisa dikustomisasi dengan logo dan warna."
+          />
         </motion.div>
 
         <motion.div

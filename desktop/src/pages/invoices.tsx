@@ -2,36 +2,30 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   Plus,
-  Search,
   Eye,
   Trash2,
   MoreHorizontal,
   Send,
   CheckCircle,
   XCircle,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SearchInput } from "@/components/ui/search-input";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { InvoiceFormDialog } from "@/components/invoice/invoice-form-dialog";
-import { DeleteDialog } from "@/components/client/delete-dialog";
+import { DeleteDialog } from "@/components/ui/delete-dialog";
 import { invoiceService } from "@/lib/invoiceService";
 import { clientService } from "@/lib/clientService";
+import { statusConfig, type InvoiceWithClient } from "@/lib/constants";
+import { getLocalUserId } from "@/lib/userId";
 import { useInvoiceStore } from "@/stores/invoiceStore";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { t } from "@/i18n";
 import type { Client, Invoice } from "@/types";
-
-const statusConfig: Record<
-  string,
-  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
-> = {
-  draft: { label: "Draft", variant: "secondary" },
-  sent: { label: "Sent", variant: "default" },
-  paid: { label: "Paid", variant: "outline" },
-  overdue: { label: "Overdue", variant: "destructive" },
-  cancelled: { label: "Cancelled", variant: "secondary" },
-};
 
 export function InvoicesPage() {
   const navigate = useNavigate();
@@ -56,7 +50,7 @@ export function InvoicesPage() {
     setLoading,
   } = useInvoiceStore();
 
-  const userId = "local-user";
+  const userId = getLocalUserId();
 
   useEffect(() => {
     loadData();
@@ -158,6 +152,7 @@ export function InvoicesPage() {
   const openForm = async () => {
     try {
       setError(null);
+      const userId = getLocalUserId();
       let number: string;
       try {
         number = await invoiceService.generateInvoiceNumber(userId);
@@ -184,16 +179,16 @@ export function InvoicesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">{t("invoices.title")}</h1>
-          <p className="text-muted-foreground">{t("invoices.subtitle")}</p>
-        </div>
-        <Button className="gap-2" onClick={() => openForm()}>
-          <Plus className="h-4 w-4" />
-          {t("invoices.create")}
-        </Button>
-      </div>
+      <PageHeader
+        title={t("invoices.title")}
+        subtitle={t("invoices.subtitle")}
+        action={
+          <Button className="gap-2" onClick={() => openForm()}>
+            <Plus className="h-4 w-4" />
+            {t("invoices.create")}
+          </Button>
+        }
+      />
 
       {error && (
         <div className="border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
@@ -202,16 +197,11 @@ export function InvoicesPage() {
       )}
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 flex-1 max-w-sm border px-3 py-2">
-          <Search className="h-4 w-4 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder={t("invoices.search")}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-          />
-        </div>
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder={t("invoices.search")}
+        />
 
         <div className="flex items-center gap-2">
           {["all", "draft", "sent", "paid", "overdue"].map((status) => (
@@ -236,24 +226,19 @@ export function InvoicesPage() {
       ) : invoices.length === 0 ? (
         <Card>
           <CardContent className="p-0">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                {search || statusFilter !== "all"
-                  ? t("invoices.noMatch")
-                  : t("invoices.empty")}
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                {search || statusFilter !== "all"
-                  ? t("invoices.noMatchDesc")
-                  : t("invoices.emptyDesc")}
-              </p>
-              {!search && statusFilter === "all" && (
-                <Button variant="outline" className="mt-4 gap-2" onClick={() => openForm()}>
-                  <Plus className="h-4 w-4" />
-                  {t("invoices.create")}
-                </Button>
-              )}
-            </div>
+            <EmptyState
+              icon={FileText}
+              title={search || statusFilter !== "all" ? t("invoices.noMatch") : t("invoices.empty")}
+              description={search || statusFilter !== "all" ? t("invoices.noMatchDesc") : t("invoices.emptyDesc")}
+              action={
+                !search && statusFilter === "all" ? (
+                  <Button variant="outline" className="gap-2" onClick={() => openForm()}>
+                    <Plus className="h-4 w-4" />
+                    {t("invoices.create")}
+                  </Button>
+                ) : undefined
+              }
+            />
           </CardContent>
         </Card>
       ) : (
@@ -297,7 +282,7 @@ export function InvoicesPage() {
                       </p>
                     </td>
                     <td className="px-4 py-3 text-sm">
-                      {(invoice as any).client_name || "-"}
+                      {(invoice as InvoiceWithClient).client_name || "-"}
                     </td>
                     <td className="px-4 py-3 text-sm text-muted-foreground">
                       {invoice.issue_date}
@@ -422,7 +407,8 @@ export function InvoicesPage() {
           setSelectedInvoice(null);
         }}
         onConfirm={handleDelete}
-        clientName={selectedInvoice?.invoice_number || ""}
+        title="Hapus Invoice"
+        itemName={selectedInvoice?.invoice_number || ""}
       />
     </div>
   );

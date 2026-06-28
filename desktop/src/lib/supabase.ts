@@ -3,9 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-console.log("Supabase URL:", supabaseUrl ? "Set" : "Not set");
-console.log("Supabase Key:", supabaseAnonKey ? "Set" : "Not set");
-
 if (!supabaseUrl || !supabaseAnonKey) {
   console.warn("Supabase credentials not found in .env file");
 }

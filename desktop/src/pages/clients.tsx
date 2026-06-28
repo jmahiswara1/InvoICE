@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Plus, Search, Pencil, Trash2, MoreHorizontal } from "lucide-react";
+import { Plus, Pencil, Trash2, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SearchInput } from "@/components/ui/search-input";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { ClientFormDialog } from "@/components/client/client-form-dialog";
-import { DeleteDialog } from "@/components/client/delete-dialog";
+import { DeleteDialog } from "@/components/ui/delete-dialog";
 import { clientService } from "@/lib/clientService";
+import { getLocalUserId } from "@/lib/userId";
 import { useClientStore } from "@/stores/clientStore";
 import type { Client } from "@/types";
 
@@ -20,7 +24,7 @@ export function ClientsPage() {
   const { clients, isLoading, setClients, addClient, updateClient, removeClient, setLoading } =
     useClientStore();
 
-  const userId = "local-user";
+  const userId = getLocalUserId();
 
   useEffect(() => {
     loadClients();
@@ -108,27 +112,22 @@ export function ClientsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Clients</h1>
-          <p className="text-muted-foreground">Kelola data klien Anda.</p>
-        </div>
-        <Button className="gap-2" onClick={() => { setSelectedClient(null); setShowForm(true); }}>
-          <Plus className="h-4 w-4" />
-          Tambah Client
-        </Button>
-      </div>
+      <PageHeader
+        title="Clients"
+        subtitle="Kelola data klien Anda."
+        action={
+          <Button className="gap-2" onClick={() => { setSelectedClient(null); setShowForm(true); }}>
+            <Plus className="h-4 w-4" />
+            Tambah Client
+          </Button>
+        }
+      />
 
-      <div className="flex items-center gap-2 max-w-sm border px-3 py-2">
-        <Search className="h-4 w-4 text-muted-foreground" />
-        <input
-          type="text"
-          placeholder="Cari klien..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-        />
-      </div>
+      <SearchInput
+        value={search}
+        onChange={setSearch}
+        placeholder="Cari klien..."
+      />
 
       {isLoading ? (
         <div className="text-center py-12 text-muted-foreground">
@@ -137,26 +136,19 @@ export function ClientsPage() {
       ) : clients.length === 0 ? (
         <Card>
           <CardContent className="p-0">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                {search ? "Tidak ada klien yang cocok" : "Belum ada klien"}
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                {search
-                  ? "Coba kata kunci lain"
-                  : "Tambah klien pertama Anda untuk mulai membuat invoice."}
-              </p>
-              {!search && (
-                <Button
-                  variant="outline"
-                  className="mt-4 gap-2"
-                  onClick={() => { setSelectedClient(null); setShowForm(true); }}
-                >
-                  <Plus className="h-4 w-4" />
-                  Tambah Client
-                </Button>
-              )}
-            </div>
+            <EmptyState
+              icon={Plus}
+              title={search ? "Tidak ada klien yang cocok" : "Belum ada klien"}
+              description={search ? "Coba kata kunci lain" : "Tambah klien pertama Anda untuk mulai membuat invoice."}
+              action={
+                !search ? (
+                  <Button variant="outline" className="gap-2" onClick={() => { setSelectedClient(null); setShowForm(true); }}>
+                    <Plus className="h-4 w-4" />
+                    Tambah Client
+                  </Button>
+                ) : undefined
+              }
+            />
           </CardContent>
         </Card>
       ) : (
@@ -258,7 +250,8 @@ export function ClientsPage() {
           setSelectedClient(null);
         }}
         onConfirm={handleDelete}
-        clientName={selectedClient?.name || ""}
+        title="Hapus Client"
+        itemName={selectedClient?.name || ""}
       />
     </div>
   );

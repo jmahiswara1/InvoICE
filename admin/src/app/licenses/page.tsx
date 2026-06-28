@@ -1,21 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Copy, CheckCircle, XCircle, Key } from "lucide-react";
+import { Plus, Copy, CheckCircle, XCircle } from "lucide-react";
 import { AdminLayout } from "@/components/layout/admin-layout";
 import { supabase } from "@/lib/supabase";
-
-interface License {
-  id: string;
-  key: string;
-  user_id: string | null;
-  is_active: boolean;
-  activated_at: string | null;
-  created_at: string;
-}
+import type { AdminLicense } from "@/lib/types";
 
 export default function LicensesPage() {
-  const [licenses, setLicenses] = useState<License[]>([]);
+  const [licenses, setLicenses] = useState<AdminLicense[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [generateCount, setGenerateCount] = useState(5);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);

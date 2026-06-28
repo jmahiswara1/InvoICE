@@ -11,6 +11,7 @@ import {
   Download,
   Shield,
 } from "lucide-react";
+import { SectionHeader } from "@/components/ui/section-header";
 
 const features = [
   {
@@ -88,15 +89,11 @@ export function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Semua yang Anda Butuhkan
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
-            Fitur lengkap untuk mengelola invoice tanpa perlu internet. Dirancang
-            khusus untuk UMKM Indonesia.
-          </p>
+          <SectionHeader
+            title="Semua yang Anda Butuhkan"
+            description="Fitur lengkap untuk mengelola invoice tanpa perlu internet. Dirancang khusus untuk UMKM Indonesia."
+          />
         </motion.div>
 
         <motion.div

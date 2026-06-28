@@ -1,6 +1,16 @@
 import { query, execute } from "@/lib/database";
 import type { Reminder } from "@/types";
 
+export interface OverdueInvoice {
+  invoice_id: number;
+  invoice_number: string;
+  total: number;
+  currency: string;
+  due_date: string;
+  status: string;
+  client_name: string;
+}
+
 export const reminderService = {
   async getByInvoice(invoiceId: number): Promise<Reminder[]> {
     return query<Reminder>(
@@ -38,7 +48,7 @@ export const reminderService = {
     await execute("DELETE FROM reminders WHERE id = $1", [id]);
   },
 
-  async getOverdueAndDueSoon(userId: string, daysAhead: number = 7): Promise<any[]> {
+  async getOverdueAndDueSoon(userId: string, daysAhead: number = 7): Promise<OverdueInvoice[]> {
     const future = new Date(Date.now() + daysAhead * 86400000)
       .toISOString()
       .split("T")[0];
@@ -48,7 +58,7 @@ export const reminderService = {
               i.due_date, i.status, c.name as client_name
        FROM invoices i
        LEFT JOIN clients c ON i.client_id = c.id
-       WHERE i.user_id = $1 AND i.status = '"'"'sent'"'"'
+       WHERE i.user_id = $1 AND i.status = 'sent'
        AND i.due_date <= $2
        ORDER BY i.due_date ASC`,
       [userId, future]

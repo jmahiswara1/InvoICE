@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
-import { Plus, Search, Trash2, MoreHorizontal, Play } from "lucide-react";
+import { Plus, Trash2, MoreHorizontal, Play, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { SearchInput } from "@/components/ui/search-input";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 import { RecurringFormDialog } from "@/components/recurring/recurring-form-dialog";
-import { DeleteDialog } from "@/components/client/delete-dialog";
+import { DeleteDialog } from "@/components/ui/delete-dialog";
 import { recurringService } from "@/lib/recurringService";
 import { clientService } from "@/lib/clientService";
+import { getLocalUserId } from "@/lib/userId";
 import { t } from "@/i18n";
 import type { Client, RecurringTemplate } from "@/types";
 
@@ -20,7 +24,7 @@ export function RecurringPage() {
   const [clients, setClients] = useState<Client[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const userId = "local-user";
+  const userId = getLocalUserId();
 
   useEffect(() => {
     loadData();
@@ -98,41 +102,39 @@ export function RecurringPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">{t("recurring.title")}</h1>
-          <p className="text-muted-foreground">{t("recurring.subtitle")}</p>
-        </div>
-        <Button className="gap-2" onClick={() => { setSelectedTemplate(null); setShowForm(true); }}>
-          <Plus className="h-4 w-4" />
-          {t("recurring.add")}
-        </Button>
-      </div>
+      <PageHeader
+        title={t("recurring.title")}
+        subtitle={t("recurring.subtitle")}
+        action={
+          <Button className="gap-2" onClick={() => { setSelectedTemplate(null); setShowForm(true); }}>
+            <Plus className="h-4 w-4" />
+            {t("recurring.add")}
+          </Button>
+        }
+      />
 
-      <div className="flex items-center gap-2 max-w-sm border px-3 py-2">
-        <Search className="h-4 w-4 text-muted-foreground" />
-        <input
-          type="text"
-          placeholder={t("recurring.search")}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-        />
-      </div>
+      <SearchInput
+        value={search}
+        onChange={setSearch}
+        placeholder={t("recurring.search")}
+      />
 
       {isLoading ? (
         <div className="text-center py-12 text-muted-foreground">{t("recurring.loading")}</div>
       ) : templates.length === 0 ? (
         <Card>
           <CardContent className="p-0">
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">{t("recurring.empty")}</p>
-              <p className="text-sm text-muted-foreground mt-1">{t("recurring.emptyDesc")}</p>
-              <Button variant="outline" className="mt-4 gap-2" onClick={() => { setSelectedTemplate(null); setShowForm(true); }}>
-                <Plus className="h-4 w-4" />
-                {t("recurring.add")}
-              </Button>
-            </div>
+            <EmptyState
+              icon={RefreshCw}
+              title={t("recurring.empty")}
+              description={t("recurring.emptyDesc")}
+              action={
+                <Button variant="outline" className="gap-2" onClick={() => { setSelectedTemplate(null); setShowForm(true); }}>
+                  <Plus className="h-4 w-4" />
+                  {t("recurring.add")}
+                </Button>
+              }
+            />
           </CardContent>
         </Card>
       ) : (
@@ -241,7 +243,8 @@ export function RecurringPage() {
         open={showDelete}
         onClose={() => { setShowDelete(false); setSelectedTemplate(null); }}
         onConfirm={handleDelete}
-        clientName={selectedTemplate?.name || ""}
+        title="Hapus Template"
+        itemName={selectedTemplate?.name || ""}
       />
     </div>
   );

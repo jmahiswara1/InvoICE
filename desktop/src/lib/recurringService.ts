@@ -1,4 +1,5 @@
 import { query, execute } from "@/lib/database";
+import { calculateNextDate } from "@/lib/invoiceCalc";
 import type { RecurringTemplate, RecurringTemplateItem } from "@/types";
 import { invoiceService } from "./invoiceService";
 
@@ -154,25 +155,9 @@ export const recurringService = {
     await invoiceService.recalculateInvoice(invoice.id);
 
     // Update next_generate_date
-    const nextDate = calculateNextDate(template.next_generate_date!, template.interval);
+    const nextDate = calculateNextDate(template.next_generate_date!, template.interval as "monthly" | "quarterly" | "yearly");
     await this.update(templateId, { next_generate_date: nextDate });
 
     return invoice.id;
   },
 };
-
-function calculateNextDate(currentDate: string, interval: string): string {
-  const current = new Date(currentDate);
-  switch (interval) {
-    case "monthly":
-      current.setMonth(current.getMonth() + 1);
-      break;
-    case "quarterly":
-      current.setMonth(current.getMonth() + 3);
-      break;
-    case "yearly":
-      current.setFullYear(current.getFullYear() + 1);
-      break;
-  }
-  return current.toISOString().split("T")[0];
-}

@@ -4,19 +4,10 @@ import { useState, useEffect } from "react";
 import { Search, MoreHorizontal, Key, RefreshCw } from "lucide-react";
 import { AdminLayout } from "@/components/layout/admin-layout";
 import { supabase } from "@/lib/supabase";
-
-interface User {
-  id: string;
-  email: string;
-  full_name: string | null;
-  business_name: string | null;
-  license_type: string;
-  invoice_count_this_month: number;
-  created_at: string;
-}
+import type { AdminUserData } from "@/lib/types";
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<AdminUserData[]>([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [actionMenu, setActionMenu] = useState<string | null>(null);

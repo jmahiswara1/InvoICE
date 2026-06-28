@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/ui/section-header";
 
 const plans = [
   {
@@ -58,15 +59,11 @@ export function Pricing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-            Harga Transparan
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
-            Bayar sekali, pakai selamanya. Tanpa langganan bulanan, tanpa biaya
-            tersembunyi.
-          </p>
+          <SectionHeader
+            title="Harga Transparan"
+            description="Bayar sekali, pakai selamanya. Tanpa langganan bulanan, tanpa biaya tersembunyi."
+          />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border-l-2 border-r border-t border-b">

@@ -2,12 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
-
-interface AdminUser {
-  id: string;
-  email: string;
-  name: string | null;
-}
+import type { AdminUser } from "@/lib/types";
 
 export function useAdminAuth() {
   const [admin, setAdmin] = useState<AdminUser | null>(null);
@@ -27,26 +22,19 @@ export function useAdminAuth() {
 
   const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {
-      console.log("Attempting login with:", email);
-
       const { data, error } = await supabase
         .from("admin_users")
         .select("*")
         .eq("email", email)
         .single();
 
-      console.log("Supabase response:", { data, error });
-
       if (error) {
-        console.error("Supabase query error:", error);
         return { success: false, error: `Database error: ${error.message}` };
       }
 
       if (!data) {
         return { success: false, error: "Email tidak ditemukan." };
       }
-
-      console.log("Found user:", data.email, "Checking password...");
 
       if (data.password_hash !== password) {
         return { success: false, error: "Password salah." };
